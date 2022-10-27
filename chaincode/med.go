@@ -11,9 +11,9 @@ import (
 )
 
 const (
-	MedicalRecordString = "medical-record-key"
+	MedicalRecordString   = "medical-record-key"
 	OperationRecordString = "operation-record-key"
-	AuditRecordString = "audit-record-key"
+	AuditRecordString     = "audit-record-key"
 )
 
 // 医疗记录
@@ -289,9 +289,9 @@ func (t *SmartContract) getMedicalRecordHistory(stub shim.ChaincodeStubInterface
 		return shim.Error("序列化时发生错误！")
 	}
 
-	if !o.IsSuccess {
-		return shim.Error("失败操作！")
-	}
+	//if !o.IsSuccess {
+	//	return shim.Error("失败操作！")
+	//}
 	return shim.Success(result2)
 }
 
