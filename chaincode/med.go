@@ -198,9 +198,9 @@ func (t *SmartContract) operateMedicalRecord(stub shim.ChaincodeStubInterface, a
 	}
 
 	//如果组织不一致则报错
-	if !o.IsSuccess {
-		return shim.Error("错误操作！")
-	}
+	//if !o.IsSuccess {
+	//	return shim.Error("错误操作！")
+	//}
 	return shim.Success(result0)
 }
 
