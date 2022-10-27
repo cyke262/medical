@@ -1,6 +1,5 @@
 # medical
 
-```
 添加依赖：
 ```
 cd medical && go mod tidy
@@ -10,6 +9,12 @@ cd medical && go mod tidy
 ./clean_docker.sh
 ```
 在`localhost:8088`进行访问
+
+```
+lsof -i:8088 
+kill -9 xxx
+```
+查询占用8088端口的进程PID，并kill掉
 
 区块链浏览器启动后在`localhost:8080`进行访问
 
