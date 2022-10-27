@@ -26,20 +26,20 @@ func main() {
 			OrgMspId:      "Org1MSP",
 			OrgUser:       "User1",
 			OrgPeerNum:    1,
-			OrgAnchorFile: os.Getenv("GOPATH") + "/src/github.com/hyperledger/fabric-samples/medical/fixtures/channel-artifacts/Org1MSPanchors.tx",
+			OrgAnchorFile: "/opt/gopath/src/github.com/hyperledger/fabric-samples/medical/fixtures/channel-artifacts/Org1MSPanchors.tx",
 		},
 	}
 
 	// init sdk env info
 	info := sdkInit.SdkEnvInfo{
 		ChannelID:        "mychannel",
-		ChannelConfig:    os.Getenv("GOPATH") + "/src/github.com/hyperledger/fabric-samples/medical/fixtures/channel-artifacts/channel.tx",
+		ChannelConfig:    "/opt/gopath/src/github.com/hyperledger/fabric-samples/medical/fixtures/channel-artifacts/channel.tx",
 		Orgs:             orgs,
 		OrdererAdminUser: "Admin",
 		OrdererOrgName:   "OrdererOrg",
 		OrdererEndpoint:  "orderer.example.com",
 		ChaincodeID:      cc_name,
-		ChaincodePath:    os.Getenv("GOPATH") + "/src/github.com/hyperledger/fabric-samples/medical/chaincode/",
+		ChaincodePath:    "/opt/gopath/src/github.com/hyperledger/fabric-samples/medical/chaincode/",
 		ChaincodeVersion: cc_version,
 	}
 
