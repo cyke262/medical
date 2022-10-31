@@ -1,10 +1,15 @@
 package controller
 
 import (
+	"bufio"
 	"encoding/json"
+	"fmt"
+	"io"
 	"medical/service"
 	"net/http"
+	"os"
 	"reflect"
+	"strconv"
 )
 
 var cuser User
@@ -401,13 +406,60 @@ func (app *Application) AuditReportResult(w http.ResponseWriter, r *http.Request
 			if curFailRate > maxFailRate {
 				maxFailRate = curFailRate
 				repo.MaxFailRateUser = user
-				repo.MaxFailRate = maxFailRate
 			}
 		}
+		repo.MaxFailRate = maxFailRate
 
 		repo.TotalOperations = int64(total)
 		repo.FailOperations = int64(fail)
 		repo.FailRate = float64(fail) / float64(total)
+
+		//动态区间实现
+		filePath := "/web/0.txt"
+		file, err := os.OpenFile(filePath, os.O_RDWR|os.O_APPEND, 0666)
+		if err != nil {
+			fmt.Println("文件打开失败", err)
+		}
+		//及时关闭file句柄
+		defer file.Close()
+		//读原来文件的内容，并且显示在终端
+		reader := bufio.NewReader(file)
+
+		var intv [2]float64
+
+		for i := 0; i < 2; i++ {
+			str, err := reader.ReadString('\n')
+
+			if err == io.EOF {
+				break
+			}
+			sc, err := strconv.ParseFloat(str, 64)
+			intv[i] = sc
+		}
+
+		repo.ReferenceRange = intv
+
+		//失败率低出区间，则信誉值上升，区间左限扩大
+		//失败率高出区间，则信誉值降低，区间右限扩大
+		if repo.FailRate < intv[0] {
+			repo.CreditChange = "上升"
+			intv[0] = repo.FailRate
+		} else if repo.FailRate > intv[1] {
+			repo.CreditChange = "下降"
+			intv[1] = repo.FailRate
+		} else {
+			repo.CreditChange = "不变"
+		}
+
+		os.Truncate("./0.txt", 0)
+		//写入文件时，使用带缓存的 *Writer
+		write := bufio.NewWriter(file)
+		for i := 0; i < 2; i++ {
+			str := strconv.FormatFloat(intv[i], 'f', 10, 64)
+			write.WriteString(str + "\r\n")
+		}
+		//Flush将缓存的文件真正写入到文件中
+		write.Flush()
 
 		data.Repo = repo
 

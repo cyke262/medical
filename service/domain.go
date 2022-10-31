@@ -61,12 +61,14 @@ type AuditRecord struct {
 
 // *新增：审计报告，记录组织的失败率信息
 type AuditReport struct {
-	TargetOrg       string  `json:"targetOrg"`       //被审计组织ID
-	TotalOperations int64   `json:"totalOperations"` //组织总操作次数
-	FailOperations  int64   `json:"failOperations"`  //组织失败操作次数
-	FailRate        float64 `json:"failRate"`        //组织失败操作率
-	MaxFailRateUser string  `json:"maxFailRateUser"` //组织中失败率最高的用户ID
-	MaxFailRate     float64 `json:"maxFailRate"`     //组织所有用户中最高的失败率
+	TargetOrg       string     `json:"targetOrg"`       //被审计组织ID
+	CreditChange    string     `json:"creditChange"`    //组织信誉值变动情况：上升、下降、不变
+	ReferenceRange  [2]float64 `json:"referenceRange"`  //参照区间
+	TotalOperations int64      `json:"totalOperations"` //组织总操作次数
+	FailOperations  int64      `json:"failOperations"`  //组织失败操作次数
+	FailRate        float64    `json:"failRate"`        //组织失败操作率
+	MaxFailRateUser string     `json:"maxFailRateUser"` //组织中失败率最高的用户ID
+	MaxFailRate     float64    `json:"maxFailRate"`     //组织所有用户中最高的失败率
 }
 
 type ServiceSetup struct {
