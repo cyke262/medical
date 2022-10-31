@@ -415,7 +415,7 @@ func (app *Application) AuditReportResult(w http.ResponseWriter, r *http.Request
 		repo.FailRate = float64(fail) / float64(total)
 
 		//动态区间实现
-		filePath := "/web/0.txt"
+		filePath := "/web/controller/0.txt"
 		file, err := os.OpenFile(filePath, os.O_RDWR|os.O_APPEND, 0666)
 		if err != nil {
 			fmt.Println("文件打开失败", err)
@@ -451,7 +451,7 @@ func (app *Application) AuditReportResult(w http.ResponseWriter, r *http.Request
 			repo.CreditChange = "不变"
 		}
 
-		os.Truncate("./0.txt", 0)
+		os.Truncate("/web/controller/0.txt", 0)
 		//写入文件时，使用带缓存的 *Writer
 		write := bufio.NewWriter(file)
 		for i := 0; i < 2; i++ {
