@@ -10,6 +10,7 @@ import (
 	"os"
 	"reflect"
 	"strconv"
+	"strings"
 )
 
 var cuser User
@@ -415,7 +416,7 @@ func (app *Application) AuditReportResult(w http.ResponseWriter, r *http.Request
 		repo.FailRate = float64(fail) / float64(total)
 
 		//动态区间实现
-		filePath := "/web/controller/0.txt"
+		filePath := "./web/controller/0.txt"
 		file, err := os.OpenFile(filePath, os.O_RDWR|os.O_APPEND, 0666)
 		if err != nil {
 			fmt.Println("文件打开失败", err)
@@ -433,7 +434,12 @@ func (app *Application) AuditReportResult(w http.ResponseWriter, r *http.Request
 			if err == io.EOF {
 				break
 			}
+			str = strings.Replace(str, "\r", "", -1)
+			str = strings.Replace(str, "\n", "", -1)
 			sc, err := strconv.ParseFloat(str, 64)
+			if err != nil {
+				fmt.Println("error in string to float64", err)
+			}
 			intv[i] = sc
 		}
 
@@ -451,7 +457,7 @@ func (app *Application) AuditReportResult(w http.ResponseWriter, r *http.Request
 			repo.CreditChange = "不变"
 		}
 
-		os.Truncate("/web/controller/0.txt", 0)
+		os.Truncate("./web/controller/0.txt", 0)
 		//写入文件时，使用带缓存的 *Writer
 		write := bufio.NewWriter(file)
 		for i := 0; i < 2; i++ {
