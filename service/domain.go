@@ -63,6 +63,7 @@ type AuditRecord struct {
 type AuditReport struct {
 	TargetOrg       string     `json:"targetOrg"`       //被审计组织ID
 	CurrentCredit   float64    `json:"currentCredit"`   //组织现在的信誉值
+	PreviousCredit  float64    `json:"previousCredit"`  //组织之前的信誉值
 	CreditChange    string     `json:"creditChange"`    //组织信誉值变动情况：上升、下降、不变
 	ReferenceRange  [2]float64 `json:"referenceRange"`  //参照区间
 	TotalOperations int64      `json:"totalOperations"` //组织总操作次数

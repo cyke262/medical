@@ -451,6 +451,7 @@ func (app *Application) AuditReportResult(w http.ResponseWriter, r *http.Request
 		intv[0] = args[0]
 		intv[1] = args[1]
 		repo.ReferenceRange = intv
+		repo.PreviousCredit = args[2]
 
 		//成功率高出区间，则信誉值上升，区间变化
 		//成功率低出区间，则信誉值降低，区间变化
