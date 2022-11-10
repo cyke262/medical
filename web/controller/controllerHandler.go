@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"math"
 	"medical/service"
 	"net/http"
 	"os"
@@ -426,9 +427,11 @@ func (app *Application) AuditReportResult(w http.ResponseWriter, r *http.Request
 		//读原来文件的内容，并且显示在终端
 		reader := bufio.NewReader(file)
 
-		var intv [2]float64
+		// args[0] args[1]：成功率区间
+		// args[2]：组织信誉值
+		var args [3]float64
 
-		for i := 0; i < 2; i++ {
+		for i := 0; i < 3; i++ {
 			str, err := reader.ReadString('\n')
 
 			if err == io.EOF {
@@ -440,28 +443,38 @@ func (app *Application) AuditReportResult(w http.ResponseWriter, r *http.Request
 			if err != nil {
 				fmt.Println("error in string to float64", err)
 			}
-			intv[i] = sc
+			args[i] = sc
 		}
 
+		// 成功率区间
+		var intv [2]float64
+		intv[0] = args[0]
+		intv[1] = args[1]
 		repo.ReferenceRange = intv
 
-		//失败率低出区间，则信誉值上升，区间左限扩大
-		//失败率高出区间，则信誉值降低，区间右限扩大
-		if repo.FailRate < intv[0] {
+		//成功率高出区间，则信誉值上升，区间变化
+		//成功率低出区间，则信誉值降低，区间变化
+		//成功率处于区间里，信誉值不变，区间不变
+		if 1-repo.FailRate > intv[1] {
 			repo.CreditChange = "上升"
-			intv[0] = repo.FailRate
-		} else if repo.FailRate > intv[1] {
+			args[2] = (args[2] + 1 - repo.FailRate) / 2
+			args[0] = math.Min(args[2], 1-repo.FailRate)
+			args[1] = math.Max(args[2], 1-repo.FailRate)
+		} else if 1-repo.FailRate < intv[0] {
 			repo.CreditChange = "下降"
-			intv[1] = repo.FailRate
+			args[2] = (args[2] + 1 - repo.FailRate) / 2
+			args[0] = math.Min(args[2], 1-repo.FailRate)
+			args[1] = math.Max(args[2], 1-repo.FailRate)
 		} else {
 			repo.CreditChange = "不变"
 		}
+		repo.CurrentCredit = args[2]
 
 		os.Truncate("./web/controller/0.txt", 0)
 		//写入文件时，使用带缓存的 *Writer
 		write := bufio.NewWriter(file)
-		for i := 0; i < 2; i++ {
-			str := strconv.FormatFloat(intv[i], 'f', 10, 64)
+		for i := 0; i < 3; i++ {
+			str := strconv.FormatFloat(args[i], 'f', 10, 64)
 			write.WriteString(str + "\r\n")
 		}
 		//Flush将缓存的文件真正写入到文件中
