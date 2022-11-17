@@ -1,17 +1,15 @@
 package controller
 
 import (
-	"bufio"
 	"encoding/json"
 	"fmt"
-	"io"
 	"math"
 	"medical/service"
 	"net/http"
-	"os"
 	"reflect"
-	"strconv"
-	"strings"
+
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/jmoiron/sqlx"
 )
 
 var cuser User
@@ -417,69 +415,110 @@ func (app *Application) AuditReportResult(w http.ResponseWriter, r *http.Request
 		repo.FailRate = float64(fail) / float64(total)
 
 		//动态区间实现
-		filePath := "./web/controller/0.txt"
-		file, err := os.OpenFile(filePath, os.O_RDWR|os.O_APPEND, 0666)
-		if err != nil {
-			fmt.Println("文件打开失败", err)
-		}
+		//filePath := "./web/controller/0.txt"
+		//file, err := os.OpenFile(filePath, os.O_RDWR|os.O_APPEND, 0666)
+		//if err != nil {
+		//fmt.Println("文件打开失败", err)
+		//}
 		//及时关闭file句柄
-		defer file.Close()
+		//defer file.Close()
 		//读原来文件的内容，并且显示在终端
-		reader := bufio.NewReader(file)
+		//reader := bufio.NewReader(file)
 
-		// args[0] args[1]：成功率区间
-		// args[2]：组织信誉值
-		var args [3]float64
+		// Credit[0] Credit[1]：成功率区间
+		// Credit[2]：组织信誉值
+		//var Credit [3]float64
 
-		for i := 0; i < 3; i++ {
-			str, err := reader.ReadString('\n')
+		//for i := 0; i < 3; i++ {
+		//str, err := reader.ReadString('\n')
 
-			if err == io.EOF {
-				break
-			}
-			str = strings.Replace(str, "\r", "", -1)
-			str = strings.Replace(str, "\n", "", -1)
-			sc, err := strconv.ParseFloat(str, 64)
-			if err != nil {
-				fmt.Println("error in string to float64", err)
-			}
-			args[i] = sc
+		//if err == io.EOF {
+		//break
+		//
+		//str = strings.Replace(str, "\r", "", -1)
+		//str = strings.Replace(str, "\n", "", -1)
+		//sc, err := strconv.ParseFloat(str, 64)
+		//if err != nil {
+		//fmt.Println("error in string to float64", err)
+		//}
+		//Credit[i] = sc
+		//}
+		var (
+			userName  string = "root"
+			password  string = "2001"
+			ipAddrees string = "192.168.18.5"
+			port      int    = 3306
+			dbName    string = "medical"
+			charset   string = "utf8"
+		)
+
+		dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s", userName, password, ipAddrees, port, dbName, charset)
+		Db, err := sqlx.Open("mysql", dsn)
+		if err != nil {
+			fmt.Printf("mysql connect failed, detail is [%v]", err.Error())
+		} else {
+			fmt.Printf("mysql connect success!\n")
 		}
+		defer Db.Close()
+
+		var intv0 float64
+		var intv1 float64
+		var Credit float64
+		rows, err := Db.Query("select intv0, intv1, Credit from credit_table where TargetOrg=" + "'0'")
+		if err != nil {
+			fmt.Println("select failed:", err)
+		}
+		for rows.Next() {
+			rows.Scan(&intv0, &intv1, &Credit)
+			fmt.Println(intv0, intv1, Credit)
+		}
+		defer rows.Close()
 
 		// 成功率区间
 		var intv [2]float64
-		intv[0] = args[0]
-		intv[1] = args[1]
+		intv[0] = intv0
+		intv[1] = intv1
 		repo.ReferenceRange = intv
-		repo.PreviousCredit = args[2]
+		repo.PreviousCredit = Credit
 
 		//成功率高出区间，则信誉值上升，区间变化
 		//成功率低出区间，则信誉值降低，区间变化
 		//成功率处于区间里，信誉值不变，区间不变
 		if 1-repo.FailRate > intv[1] {
 			repo.CreditChange = "上升"
-			args[2] = (args[2] + 1 - repo.FailRate) / 2
-			args[0] = math.Min(args[2], 1-repo.FailRate)
-			args[1] = math.Max(args[2], 1-repo.FailRate)
+			Credit = (Credit + 1 - repo.FailRate) / 2
+			intv0 = math.Min(Credit, 1-repo.FailRate)
+			intv1 = math.Max(Credit, 1-repo.FailRate)
 		} else if 1-repo.FailRate < intv[0] {
 			repo.CreditChange = "下降"
-			args[2] = (args[2] + 1 - repo.FailRate) / 2
-			args[0] = math.Min(args[2], 1-repo.FailRate)
-			args[1] = math.Max(args[2], 1-repo.FailRate)
+			Credit = (Credit + 1 - repo.FailRate) / 2
+			intv0 = math.Min(Credit, 1-repo.FailRate)
+			intv1 = math.Max(Credit, 1-repo.FailRate)
 		} else {
 			repo.CreditChange = "不变"
 		}
-		repo.CurrentCredit = args[2]
+		repo.CurrentCredit = Credit
 
-		os.Truncate("./web/controller/0.txt", 0)
+		//os.Truncate("./web/controller/0.txt", 0)
 		//写入文件时，使用带缓存的 *Writer
-		write := bufio.NewWriter(file)
-		for i := 0; i < 3; i++ {
-			str := strconv.FormatFloat(args[i], 'f', 10, 64)
-			write.WriteString(str + "\r\n")
-		}
+		//write := bufio.NewWriter(file)
+		//for i := 0; i < 3; i++ {
+		//str := strconv.FormatFloat(Credit[i], 'f', 10, 64)
+		//write.WriteString(str + "\r\n")
+		//}
 		//Flush将缓存的文件真正写入到文件中
-		write.Flush()
+		//write.Flush()
+
+		sql := "update credit_table set intv0=?, intv1=?, Credit=? where TargetOrg=?"
+		result, err := Db.Exec(sql, intv0, intv1, Credit, "0")
+		if err != nil {
+			fmt.Println("update failed:", err)
+		}
+		row, err := result.RowsAffected()
+		if err != nil {
+			fmt.Println("row failed:", err)
+		}
+		fmt.Println("update success:", row)
 
 		data.Repo = repo
 
