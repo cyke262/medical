@@ -446,13 +446,12 @@ func (app *Application) AuditReportResult(w http.ResponseWriter, r *http.Request
 		var (
 			userName  string = "root"
 			password  string = "2001"
-			ipAddrees string = "192.168.18.5"
+			ipAddrees string = "127.0.0.1"
 			port      int    = 3306
 			dbName    string = "medical"
-			charset   string = "utf8"
 		)
 
-		dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s", userName, password, ipAddrees, port, dbName, charset)
+		dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?allowNativePasswords=true", userName, password, ipAddrees, port, dbName)
 		Db, err := sqlx.Open("mysql", dsn)
 		if err != nil {
 			fmt.Printf("mysql connect failed, detail is [%v]", err.Error())
