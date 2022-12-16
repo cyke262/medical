@@ -62,7 +62,7 @@ func (app *Application) UploadMed(w http.ResponseWriter, r *http.Request) {
 	data.Flag = true
 	data.Msg = ""
 
-	arr := [7]string{r.FormValue("medicalRecordID"), cuser.LoginName, r.FormValue("patientID"), r.FormValue("organizationID"), r.FormValue("dataField"), r.FormValue("data"), r.FormValue("entryMethod")}
+	arr := [17]string{r.FormValue("groups"), r.FormValue("subjectMark"), r.FormValue("name"), r.FormValue("nameInitials"), r.FormValue("caseNumber"), r.FormValue("sex"), r.FormValue("nation"), r.FormValue("diseases"), r.FormValue("medicalHistory"), r.FormValue("nativePlace"), r.FormValue("diagnose"), cuser.LoginName, r.FormValue("organization"), r.FormValue("addition1"), r.FormValue("addition2"), r.FormValue("addition3"), r.FormValue("status")}
 	transactionID, err := app.Setup.UploadMed(arr[:])
 
 	if err != nil {
@@ -463,7 +463,7 @@ func (app *Application) AuditReportResult(w http.ResponseWriter, r *http.Request
 		var intv0 float64
 		var intv1 float64
 		var Credit float64
-		rows, err := Db.Query("select intv0, intv1, Credit from credit_table where TargetOrg=" + "'0'")
+		rows, err := Db.Query("select intv0, intv1, Credit from credit_table where TargetOrg=" + repo.TargetOrg)
 		if err != nil {
 			fmt.Println("select failed:", err)
 		}
@@ -509,7 +509,7 @@ func (app *Application) AuditReportResult(w http.ResponseWriter, r *http.Request
 		//write.Flush()
 
 		sql := "update credit_table set intv0=?, intv1=?, Credit=? where TargetOrg=?"
-		result, err := Db.Exec(sql, intv0, intv1, Credit, "0")
+		result, err := Db.Exec(sql, intv0, intv1, Credit, repo.TargetOrg)
 		if err != nil {
 			fmt.Println("update failed:", err)
 		}
