@@ -87,10 +87,10 @@ type ServiceSetup struct {
 // 数据库配置
 const (
 	userName = "root"
-	password = "123456"
+	password = "2001"
 	ip       = "127.0.0.1"
 	port     = "3306"
-	dbName   = "test"
+	dbName   = "itbtsql"
 )
 
 // Db数据库连接池
