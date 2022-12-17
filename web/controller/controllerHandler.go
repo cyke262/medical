@@ -104,7 +104,7 @@ func (app *Application) AccessMedResult(w http.ResponseWriter, r *http.Request) 
 	var result []byte
 	var err error
 	if data.History {
-		result, err = app.Setup.GetMedHistory(arr[:])
+		// result, err = app.Setup.GetMedHistory(arr[:])
 	} else {
 		result, err = app.Setup.OperateMed(arr[:])
 	}
