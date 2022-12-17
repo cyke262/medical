@@ -23,6 +23,21 @@ kill -9 xxx
 ```
 查询占用8088端口的进程PID，并kill掉
 
+## 数据库
+
+进入mysql，输入密码后进入`medical`数据库，在`credit_table`上查询：
+```
+mysql -p;
+use medical;
+select * from credit_table;
+```
+
+`credit_table`属性：
+||TargetOrg|intv0|intv1|Credit|
+|-|-|-|-|-|
+|注释|被审计组织ID|区间下限|区间上限|被审计组织信誉值|
+|类型|VARCHAR|FLOAT|FLOAT|FLOAT|
+
 ## 报错
 
 + 若提示无权限运行.sh文件：
