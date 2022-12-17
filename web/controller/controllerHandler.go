@@ -463,7 +463,7 @@ func (app *Application) AuditReportResult(w http.ResponseWriter, r *http.Request
 		var intv0 float64
 		var intv1 float64
 		var Credit float64
-		rows, err := Db.Query("select intv0, intv1, Credit from credit_table where TargetOrg=" + "'0'")
+		rows, err := Db.Query("select intv0, intv1, Credit from credit_table where TargetOrg=" + repo.TargetOrg)
 		if err != nil {
 			fmt.Println("select failed:", err)
 		}
@@ -509,7 +509,7 @@ func (app *Application) AuditReportResult(w http.ResponseWriter, r *http.Request
 		//write.Flush()
 
 		sql := "update credit_table set intv0=?, intv1=?, Credit=? where TargetOrg=?"
-		result, err := Db.Exec(sql, intv0, intv1, Credit, "0")
+		result, err := Db.Exec(sql, intv0, intv1, Credit, repo.TargetOrg)
 		if err != nil {
 			fmt.Println("update failed:", err)
 		}
