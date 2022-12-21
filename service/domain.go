@@ -165,7 +165,7 @@ func SetSQL(sqlmap interface{}, queryString string) string {
 }
 
 // 查询并返回数据
-func queryDB(Sql string) map[int]string {
+func QueryDB(Sql string) map[int]string {
 	var subId string
 	rows, err := DB.Query(Sql)
 	if err != nil {

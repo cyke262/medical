@@ -30,13 +30,45 @@ func (app *Application) Login(w http.ResponseWriter, r *http.Request) {
 	password := r.FormValue("password")
 
 	var flag bool
-	for _, user := range users {
-		if user.LoginName == loginName && user.Password == password {
-			cuser = user
-			flag = true
-			break
+	service.InitDB()
+	// Todo:好好改
+	sql := "SELECT user_id, user_role, user_insti FROM user_info"
+	rows, err := service.DB.Query(sql)
+	if err != nil {
+		fmt.Printf("query failed, err:%v\n", err)
+	} else {
+		var user string
+		var role string
+		var pass string
+		for rows.Next() {
+			err := rows.Scan(&user, &role, &pass)
+			if err != nil {
+				fmt.Printf("scan failed, err:%v\n", err)
+				break
+			}
+			if user == loginName && pass == password {
+				sql := "update user_info set user_state=? where user_id=?;"
+				service.DB.Exec(sql, "1", user)
+				cuser.LoginName = loginName
+				cuser.Password = password
+				if role == "admin" {
+					cuser.IsAdmin = "T"
+				} else {
+					cuser.IsAdmin = "F"
+				}
+				flag = true
+				break
+			}
 		}
 	}
+
+	// for _, user := range users {
+	// 	if user.LoginName == loginName && user.Password == password {
+	// 		cuser = user
+	// 		flag = true
+	// 		break
+	// 	}
+	// }
 	data.CurrentUser = cuser
 	data.Flag = false
 
