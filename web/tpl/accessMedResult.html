@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>查询结果</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="/static/css/reset.css" rel="stylesheet">
+    <!-- Bootstrap3.3.5 CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/queryResult.css" rel="stylesheet">
+  </head>
+  <body>
+  <div class="container">
+      <div class="queryResule">
+          <h2>医疗记录查询结果</h2>
+          {{if .History}}
+            <div id="tableDiv">
+                <table id="table" style="margin: 0 auto;">
+                    <tr>
+                        <td>医疗记录ID</td>
+                        <td>用户ID</td>
+                        <td>病人ID</td>
+                        <td>组织（医院）ID</td>
+                        <td>记录类型</td>
+                        <td>数据类型</td>
+                        <td>数据值</td>
+                        <td>输入方法</td>
+                        <td>时间</td>
+                    </tr>
+                    {{range .Med.Historys}}
+                        <tr>
+                            <td>{{.MedicalRecord.MedicalRecordID}}</td>
+                            <td>{{.MedicalRecord.UserID}}</td>
+                            <td>{{.MedicalRecord.PatientID}}</td>
+                            <td>{{.MedicalRecord.OrganizationID}}</td>
+                            <td>{{.MedicalRecord.DataType}}</td>
+                            <td>{{.MedicalRecord.DataField}}</td>
+                            <td>{{.MedicalRecord.Data}}</td>
+                            <td>{{.MedicalRecord.EntryMethod}}</td>
+                            <td>{{.MedicalRecord.Time}}</td>
+                        </tr>
+                    {{end}}
+                </table>
+            </div>
+          {{end}}
+          <div class="top">
+              <div class="middle">
+                  <p>
+                      <span>分组：</span>
+                      <span>{{.Med.Groups}}</span>
+                  </p>
+                  <p>
+                      <span>样本标识符：</span>
+                      <span>{{.Med.SubjectMark}}</span>
+                  </p>
+                  <p>
+                      <span>姓名：</span>
+                      <span>{{.Med.Name}}</span>
+                  </p>
+                  <p>
+                      <span>姓名缩写：</span>
+                      <span>{{.Med.NameInitials}}</span>
+                  </p>
+                  <p>
+                      <span>病例号：</span>
+                      <span>{{.Med.CaseNumber}}</span>
+                  </p>
+                  <p>
+                      <span>性别：</span>
+                      <span>{{.Med.Sex}}</span>
+                  </p>
+                  <p>
+                      <span>民族：</span>
+                      <span>{{.Med.Nation}}</span>
+                  </p>
+                  <p>
+                      <span>疾病种类：</span>
+                      <span>{{.Med.Diseases}}</span>
+                  </p>
+                  <p>
+                      <span>现病史：</span>
+                      <span>{{.Med.MedicalHistory}}</span>
+                  </p>
+                  <p>
+                      <span>现住地：</span>
+                      <span>{{.Med.NativePlace}}</span>
+                  </p>
+                  <p>
+                    <span>诊断：</span>
+                    <span>{{.Med.Diagnose}}</span>
+                  </p>
+                  <p>
+                    <span>研究者：</span>
+                    <span>{{.Med.Researcher}}</span>
+                  </p>
+                  <p>
+                    <span>机构：</span>
+                    <span>{{.Med.Organization}}</span>
+                  </p>
+                  <p>
+                    <span>预留信息1：</span>
+                    <span>{{.Med.Addition1}}</span>
+                  </p>
+                  <p>
+                    <span>预留信息2：</span>
+                    <span>{{.Med.Addition2}}</span>
+                  </p>
+                  <p>
+                    <span>预留信息3：</span>
+                    <span>{{.Med.Addition3}}</span>
+                  </p>
+                  <p>
+                    <span>状态：</span>
+                    <span>{{.Med.Status}}</span>
+                  </p>
+                  <p>
+                    <span>入组时间：</span>
+                    <span>{{.Med.EntryTime}}</span>
+                  </p>
+                  <p>
+                    <span>基准时间：</span>
+                    <span>{{.Med.BaseTime}}</span>
+                  </p>
+                  <p>
+                    <span>采集时间-1：</span>
+                    <span>{{.Med.GatherTime}}</span>
+                  </p>
+              </div>
+          </div>
+          <p>
+              <a href="/index">返回首页</a>
+              <a href="/operateMed">返回上一级</a>
+          </p>
+      </div>
+  </div>
+  </body>
+</html>
