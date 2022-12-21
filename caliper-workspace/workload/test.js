@@ -1,0 +1,102 @@
+'use strict';
+
+const { WorkloadModuleBase } = require('@hyperledger/caliper-core');
+
+class MyWorkload extends WorkloadModuleBase {
+    constructor() {
+        super();
+    }
+
+    async initializeWorkloadModule(workerIndex, totalWorkers, roundIndex, roundArguments, sutAdapter, sutContext) {
+        await super.initializeWorkloadModule(workerIndex, totalWorkers, roundIndex, roundArguments, sutAdapter, sutContext);
+        //[7]string{"m" + strconv.Itoa(i), "u" + strconv.Itoa(i), "p" + strconv.Itoa(i), "o" + strconv.Itoa(i), "arg", "www", "Manual"}
+        for (let i=0; i<this.roundArguments.assets; i++) {
+            const medicalRecordID = `m${i}`;
+            const userID = `u${i}`;
+            const patientID = `p${i}`;
+            const organisationID = `o${i}`;
+            console.log(`Worker ${this.workerIndex}: Creating medical record ${medicalRecordID}`);
+            const request = {
+                contractId: this.roundArguments.contractId,
+                contractFunction: 'UploadMedicalRecord',
+                invokerIdentity: 'Admin@org1.example.com',
+                contractArguments: [medicalRecordID,userID,patientID,organisationID,'arg','www','Manual','eventUploadMed'],
+                readOnly: false
+            };
+
+            await this.sutAdapter.sendRequests(request);
+        }
+    }
+
+    async submitTransaction() {
+        const randomId = Math.floor(Math.random()*this.roundArguments.assets);
+        const operationRecordID = 'op${randomId}';
+        const userID = `u${randomId}`;
+        const organisationID = `o${randomId}`;
+        const medicalRecordID = `m1`;
+        const myArgs = {
+            contractId: this.roundArguments.contractId,
+            contractFunction: 'OperateMedicalRecord',
+            invokerIdentity: 'Admin@org1.example.com',
+            contractArguments: [operationRecordID,userID,organisationID,medicalRecordID,'eventOperateMed'],
+            readOnly: true
+        };
+
+        await this.sutAdapter.sendRequests(myArgs);
+    }
+
+    /*
+    async initializeWorkloadModule(workerIndex, totalWorkers, roundIndex, roundArguments, sutAdapter, sutContext) {
+        await super.initializeWorkloadModule(workerIndex, totalWorkers, roundIndex, roundArguments, sutAdapter, sutContext);
+
+        for (let i=0; i<this.roundArguments.assets; i++) {
+            const assetID = `${this.workerIndex}_${i}`;
+            console.log(`Worker ${this.workerIndex}: Creating asset ${assetID}`);
+            const request = {
+                contractId: this.roundArguments.contractId,
+                contractFunction: 'CreateAsset',
+                invokerIdentity: 'Admin@org1.example.com',
+                contractArguments: [assetID,'blue','20','penguin','500'],
+                readOnly: false
+            };
+
+            await this.sutAdapter.sendRequests(request);
+        }
+    }
+    
+    async submitTransaction() {
+        const randomId = Math.floor(Math.random()*this.roundArguments.assets);
+        const myArgs = {
+            contractId: this.roundArguments.contractId,
+            contractFunction: 'ReadAsset',
+            invokerIdentity: 'Admin@org1.example.com',
+            contractArguments: [`${this.workerIndex}_${randomId}`],
+            readOnly: true
+        };
+
+        await this.sutAdapter.sendRequests(myArgs);
+    }
+    
+    async cleanupWorkloadModule() {
+        for (let i=0; i<this.roundArguments.assets; i++) {
+            const assetID = `${this.workerIndex}_${i}`;
+            console.log(`Worker ${this.workerIndex}: Deleting asset ${assetID}`);
+            const request = {
+                contractId: this.roundArguments.contractId,
+                contractFunction: 'DeleteAsset',
+                invokerIdentity: 'Admin@org1.example.com',
+                contractArguments: [assetID],
+                readOnly: false
+            };
+
+            await this.sutAdapter.sendRequests(request);
+        }
+    }
+    */
+}
+
+function createWorkloadModule() {
+    return new MyWorkload();
+}
+
+module.exports.createWorkloadModule = createWorkloadModule;

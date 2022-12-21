@@ -1,0 +1,27 @@
+test:
+    name: simplecc-contract-benchmark
+    description: test benchmark
+    workers:
+      type: local
+      number: 2
+    rounds:
+      - label: TestMedical
+        description: Test benchmark
+        txDuration: 30
+        rateControl: 
+          type: fixed-load
+          opts:
+            transactionLoad: 2
+        workload:
+          module: workload/test.js
+          arguments:
+            assets: 10
+            contractId: simplecc
+monitors:
+  resource:
+  - module: docker
+    options:
+      interval: 5 
+      containers:
+      - all
+
