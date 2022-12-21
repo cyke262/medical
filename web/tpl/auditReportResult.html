@@ -1,0 +1,101 @@
+<!-- *新增：审计报告结果 -->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>查询结果</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="/static/css/reset.css" rel="stylesheet">
+    <!-- Bootstrap3.3.5 CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/queryResult.css" rel="stylesheet">
+  </head>
+  <body>
+  <div class="container">
+      <div class="queryResule">
+          <h2>组织审计报告</h2>
+            <div id="tableDiv">
+                <table id="table" style="margin: 0 auto;">
+                    <tr>
+                        <td>操作记录ID</td>
+                        <td>操作者用户ID</td>
+                        <td>组织（医院）ID</td>
+                        <td>记录类型</td>
+                        <td>操作类型</td>
+                        <td>涉及到的医疗记录ID</td>
+                        <td>涉及到的医疗记录创建者ID</td>
+                        <td>医疗记录涉及到的患者ID</td>
+                        <td>操作记录的输入方式</td>
+                        <td>操作是否成功</td>
+                        <td>时间</td>
+                    </tr>
+                    {{range .Ops.OperationRecord}}
+                        <tr>
+                            <td>{{.OperationRecordID}}</td>
+                            <td>{{.UserID}}</td>
+                            <td>{{.OrganizationID}}</td>
+                            <td>{{.DataType}}</td>
+                            <td>{{.ActionType}}</td>
+                            <td>{{.MedicalRecordID}}</td>
+                            <td>{{.OriginalAuthorID}}</td>
+                            <td>{{.PatientID}}</td>
+                            <td>{{.EntryMethod}}</td>
+                            <td>{{.IsSuccess}}</td>
+                            <td>{{.Time}}</td>
+                        </tr>
+                    {{end}}
+                </table>
+            </div>
+            <div class="top">
+              <div class="middle">
+                  <p>
+                      <span>被审计组织：</span>
+                      <span>{{.Repo.TargetOrg}}</span>
+                  </p>
+                  <p>
+                      <span style="font-size: large; font-weight:bold; color:gold">当前信誉值：</span>
+                      <span style="font-size: large; font-weight:bold; color:gold">{{.Repo.CurrentCredit}}</span>
+                  </p>
+                  <p>
+                      <span>历史信誉值：</span>
+                      <span>{{.Repo.PreviousCredit}}</span>
+                  </p>
+                  <p>
+                      <span style="font-weight: bold;color: green">信誉值变动：</span>
+                      <span style="font-weight: bold;color: green">{{.Repo.CreditChange}}</span>
+                  </p>
+                  <p>
+                      <span style="font-weight: bold">参照区间</span>
+                      <span style="font-weight: bold">{{.Repo.ReferenceRange}}</span>
+                  </p>
+                  <p>
+                      <span>总操作次数：</span>
+                      <span>{{.Repo.TotalOperations}}</span>
+                  </p>
+                  <p>
+                      <span>失败次数：</span>
+                      <span>{{.Repo.FailOperations}}</span>
+                  </p>
+                  <p>
+                      <span>失败操作率：</span>
+                      <span>{{.Repo.FailRate}}</span>
+                  </p>
+                  <p>
+                      <span>失败率最高用户：</span>
+                      <span>{{.Repo.MaxFailRateUser}}</span>
+                  </p>
+                  <p>
+                      <span>最高失败率</span>
+                      <span>{{.Repo.MaxFailRate}}</span>
+                  </p>
+              </div>
+            </div>
+          <p>
+              <a href="/index">返回首页</a>
+              <a href="/auditMed">返回上一级</a>
+          </p>
+      </div>
+  </div>
+  </body>
+</html>
