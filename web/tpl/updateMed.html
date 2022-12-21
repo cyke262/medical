@@ -1,81 +1,221 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>医疗记录修改</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link href="/static/css/reset.css" rel="stylesheet">
-    <!-- Bootstrap3.3.5 CSS -->
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/query.css">
-  </head>
-  <body>
-    <div class="container">
-      <h2>医疗记录修改</h2>
-      <div id="query">
-            <div class="left">
-              <form action="/updateMed" method="post" name="updateMedicalForm">
-                <p>
-                  操作记录ID：
-                  <input type="text" class="input_text" name="operationRecordID" onfocus="if(this.placeholder=='需要提供操作记录ID'){this.placeholder='';}this.className ='input_text input_text_focus'" onblur="if(this.value==''){this.placeholder='需要提供操作记录ID';this.className ='input_text'}" value="" placeholder="需要提供操作记录ID" maxlength="18">
-                </p>
-                <p>
-                  医院（组织）ID：
-                  <input type="text" class="input_text" name="organisationID" onfocus="if(this.placeholder=='需要提供医院（组织）ID'){this.placeholder='';}this.className ='input_text input_text_focus'" onblur="if(this.value==''){this.placeholder='需要提供医院（组织）ID';this.className ='input_text'}" value="" placeholder="需要提供医院（组织）ID" maxlength="18">
-                </p>
-                <p>
-                  医疗记录ID：
-                  <input type="text" class="input_text" name="medicalRecordID" onfocus="if(this.placeholder=='想要修改的医疗记录ID'){this.placeholder='';}this.className ='input_text input_text_focus'" onblur="if(this.value==''){this.placeholder='想要修改的医疗记录ID';this.className ='input_text'}" value="" placeholder="想要修改的医疗记录ID" maxlength="18">
-                </p>
-                <p>
-                  医疗记录新的数据值：
-                  <input type="text" class="input_text" name="medicalRecordData" onfocus="if(this.placeholder=='想要修改的医疗记录新的数据值'){this.placeholder='';}this.className ='input_text input_text_focus'" onblur="if(this.value==''){this.placeholder='想要修改的医疗记录新的数据值';this.className ='input_text'}" value="" placeholder="想要修改的医疗记录新的数据值" maxlength="18">
-                </p>
-                <p>
-                  <button type="button" name="button" class="btn">修改医疗记录</button>
-                </p>
-                <a href="/index">返回首页</a>
-                <a href="/operateMed">返回上一级</a>
-              </form>
-            </div>
-      </div>
-      <!-- data-backdrop="false"去除遮罩层  -->
-      <div class="modal fade bd-example-modal-sm"  id="myModal" role="dialog" data-backdrop="false"  aria-hidden="true">
-          <div class="modal-dialog modal-sm">
-              <div class="modal-content">
-                  <p class="text-center mb-0" style="height:42px;line-height:42px;margin:0;">
-                      <i class="fa fa-check-circle text-success mr-1" aria-hidden="true"></i>
-                      请输入要修改的医疗记录
-                  </p>
-              </div>
-          </div>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>医疗记录修改</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link href="/static/css/reset.css" rel="stylesheet">
+  <!-- Bootstrap3.3.5 CSS -->
+  <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/query.css">
+</head>
+
+<body>
+<div class="container">
+  <h2>医疗记录修改</h2>
+  <div id="query">
+    <div class="left">
+      <form action="/updateMed" method="post" name="updateMedicalForm">
+        <p>
+          <span>分组：</span>
+          <span>
+              <input type="text" name="groups" class="input_text" tabindex="1"
+                     onfocus="if(this.placeholder=='分组'){this.placeholder='';}this.className ='input_text input_text_focus'"
+                     onblur="if(this.value==''){this.placeholder='分组';this.className ='input_text'}" accesskey="n"
+                     type="text" placeholder="分组" size="25" autocomplete="off">
+            </span>
+        </p>
+        <p>
+          <span>样本标识符：</span>
+          <span>
+              <input type="text" name="subjectMark" class="input_text" tabindex="1"
+                     onfocus="if(this.placeholder=='样本标识符'){this.placeholder='';}this.className ='input_text input_text_focus'"
+                     onblur="if(this.value==''){this.placeholder='样本标识符';this.className ='input_text'}" accesskey="n"
+                     type="text" placeholder="样本标识符" size="25" autocomplete="off">
+            </span>
+        </p>
+        <p>
+          <span>姓名：</span>
+          <span>
+              <input type="text" name="name" class="input_text" tabindex="1"
+                     onfocus="if(this.placeholder=='姓名'){this.placeholder='';}this.className ='input_text input_text_focus'"
+                     onblur="if(this.value==''){this.placeholder='姓名';this.className ='input_text'}" accesskey="n"
+                     type="text" placeholder="姓名" size="25" autocomplete="off">
+            </span>
+        </p>
+        <p>
+          <span>姓名缩写：</span>
+          <span>
+              <input type="text" name="nameInitials" class="input_text" tabindex="1"
+                     onfocus="if(this.placeholder=='姓名缩写'){this.placeholder='';}this.className ='input_text input_text_focus'"
+                     onblur="if(this.value==''){this.placeholder='姓名缩写';this.className ='input_text'}" accesskey="n"
+                     type="text" placeholder="姓名缩写" size="25" autocomplete="off">
+            </span>
+        </p>
+        <p>
+          <span>病例号：</span>
+          <span>
+              <input type="text" name="caseNumber" class="input_text" tabindex="1"
+                     onfocus="if(this.placeholder=='病例号'){this.placeholder='';}this.className ='input_text input_text_focus'"
+                     onblur="if(this.value==''){this.placeholder='病例号';this.className ='input_text'}" accesskey="n"
+                     type="text" placeholder="病例号" size="25" autocomplete="off">
+            </span>
+        </p>
+        <p>
+          <span>性别：</span>
+          <span>
+              <input type="text" name="sex" class="input_text" tabindex="1"
+                     onfocus="if(this.placeholder=='性别'){this.placeholder='';}this.className ='input_text input_text_focus'"
+                     onblur="if(this.value==''){this.placeholder='性别';this.className ='input_text'}" accesskey="n"
+                     type="text" placeholder="性别" size="25" autocomplete="off">
+            </span>
+        </p>
+        <p>
+          <span>民族：</span>
+          <span>
+              <input type="text" name="nation" class="input_text" tabindex="1"
+                     onfocus="if(this.placeholder=='民族'){this.placeholder='';}this.className ='input_text input_text_focus'"
+                     onblur="if(this.value==''){this.placeholder='民族';this.className ='input_text'}" accesskey="n"
+                     type="text" placeholder="民族" size="25" autocomplete="off">
+            </span>
+        </p>
+        <p>
+          <span>疾病种类：</span>
+          <span>
+              <input type="text" name="diseases" class="input_text" tabindex="1"
+                     onfocus="if(this.placeholder=='疾病种类'){this.placeholder='';}this.className ='input_text input_text_focus'"
+                     onblur="if(this.value==''){this.placeholder='疾病种类';this.className ='input_text'}" accesskey="n"
+                     type="text" placeholder="疾病种类" size="25" autocomplete="off">
+            </span>
+        </p>
+        <p>
+          <span>现病史：</span>
+          <span>
+              <input type="text" name="medicalHistory" class="input_text" tabindex="1"
+                     onfocus="if(this.placeholder=='现病史'){this.placeholder='';}this.className ='input_text input_text_focus'"
+                     onblur="if(this.value==''){this.placeholder='现病史';this.className ='input_text'}" accesskey="n"
+                     type="text" placeholder="现病史" size="25" autocomplete="off">
+            </span>
+        </p>
+        <p>
+          <span>现住地：</span>
+          <span>
+              <input type="text" name="nativePlace" class="input_text" tabindex="1"
+                     onfocus="if(this.placeholder=='现住地'){this.placeholder='';}this.className ='input_text input_text_focus'"
+                     onblur="if(this.value==''){this.placeholder='现住地';this.className ='input_text'}" accesskey="n"
+                     type="text" placeholder="现住地" size="25" autocomplete="off">
+            </span>
+        </p>
+        <p>
+          <span>诊断：</span>
+          <span>
+              <input type="text" name="diagnose" class="input_text" tabindex="1"
+                     onfocus="if(this.placeholder=='诊断'){this.placeholder='';}this.className ='input_text input_text_focus'"
+                     onblur="if(this.value==''){this.placeholder='诊断';this.className ='input_text'}" accesskey="n"
+                     type="text" placeholder="诊断" size="25" autocomplete="off">
+            </span>
+        </p>
+        <p>
+          <span>研究者：</span>
+          <span>
+              <input type="text" name="researcher" class="input_text" tabindex="1"
+                     onfocus="if(this.placeholder=='研究者'){this.placeholder='';}this.className ='input_text input_text_focus'"
+                     onblur="if(this.value==''){this.placeholder='研究者';this.className ='input_text'}" accesskey="n"
+                     type="text" placeholder="研究者" size="25" autocomplete="off">
+            </span>
+        </p>
+        <p>
+          <span>机构：</span>
+          <span>
+              <input type="text" name="organization" class="input_text" tabindex="1"
+                     onfocus="if(this.placeholder=='机构'){this.placeholder='';}this.className ='input_text input_text_focus'"
+                     onblur="if(this.value==''){this.placeholder='机构';this.className ='input_text'}" accesskey="n"
+                     type="text" placeholder="机构" size="25" autocomplete="off">
+            </span>
+        </p>
+        <p>
+          <span>预留信息1：</span>
+          <span>
+              <input type="text" name="addition1" class="input_text" tabindex="1"
+                     onfocus="if(this.placeholder=='预留信息1'){this.placeholder='';}this.className ='input_text input_text_focus'"
+                     onblur="if(this.value==''){this.placeholder='预留信息1';this.className ='input_text'}" accesskey="n"
+                     type="text" placeholder="预留信息1" size="25" autocomplete="off">
+            </span>
+        </p>
+        <p>
+          <span>预留信息2：</span>
+          <span>
+              <input type="text" name="addition2" class="input_text" tabindex="1"
+                     onfocus="if(this.placeholder=='预留信息2'){this.placeholder='';}this.className ='input_text input_text_focus'"
+                     onblur="if(this.value==''){this.placeholder='预留信息2';this.className ='input_text'}" accesskey="n"
+                     type="text" placeholder="预留信息2" size="25" autocomplete="off">
+            </span>
+        </p>
+        <p>
+          <span>预留信息3：</span>
+          <span>
+              <input type="text" name="addition3" class="input_text" tabindex="1"
+                     onfocus="if(this.placeholder=='预留信息3'){this.placeholder='';}this.className ='input_text input_text_focus'"
+                     onblur="if(this.value==''){this.placeholder='预留信息3';this.className ='input_text'}" accesskey="n"
+                     type="text" placeholder="预留信息3" size="25" autocomplete="off">
+            </span>
+        </p>
+        <p>
+          <span>状态：</span>
+          <span>
+              <input type="text" name="status" class="input_text" tabindex="1"
+                     onfocus="if(this.placeholder=='状态'){this.placeholder='';}this.className ='input_text input_text_focus'"
+                     onblur="if(this.value==''){this.placeholder='状态';this.className ='input_text'}" accesskey="n"
+                     type="text" placeholder="状态" size="25" autocomplete="off">
+            </span>
+        </p>
+        <p>
+          <button type="button" name="button" class="btn">修改医疗记录</button>
+        </p>
+        <a href="/index">返回首页</a>
+        <a href="/operateMed">返回上一级</a>
+      </form>
+    </div>
+  </div>
+  <!-- data-backdrop="false"去除遮罩层  -->
+  <div class="modal fade bd-example-modal-sm" id="myModal" role="dialog" data-backdrop="false" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <p class="text-center mb-0" style="height:42px;line-height:42px;margin:0;">
+          <i class="fa fa-check-circle text-success mr-1" aria-hidden="true"></i>
+          请输入要修改的医疗记录
+        </p>
       </div>
     </div>
-  </body>
-  <script type="text/javascript" src="/static/js/jquery.min.js"></script>
-  <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
-  <script type="text/javascript">
-    $(function() {
-      var inputs = $('input[type="text"]');
-      // 提交按钮
-      $('.btn').click(function() {
-        // 如果为空 报错提示
-        for (var i = 0; i < inputs.length; i++) {
-          if (!($(inputs[i]).val())) {
-            $(inputs[i]).addClass('redColor');
-            $('#myModal').modal('show');
-            setTimeout(function(){
-              $("#myModal").modal("hide");
-            },2000);
-            return;
-          }
+  </div>
+</div>
+</body>
+<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  $(function () {
+    var inputs = $('input[type="text"]');
+    // 提交按钮
+    $('.btn').click(function () {
+      // 如果为空 报错提示
+      for (var i = 0; i < inputs.length; i++) {
+        if (!($(inputs[i]).val())) {
+          $(inputs[i]).addClass('redColor');
+          $('#myModal').modal('show');
+          setTimeout(function () {
+            $("#myModal").modal("hide");
+          }, 2000);
+          return;
         }
+      }
 
-        // 成功后提交数据
-        //$(location).attr('href','queryResult.html');
-        $("form[name='updateMedicalForm']").submit()
-      })
+      // 成功后提交数据
+      //$(location).attr('href','queryResult.html');
+      $("form[name='updateMedicalForm']").submit()
     })
-  </script>
+  })
+</script>
+
 </html>

@@ -2,11 +2,10 @@ package web
 
 import (
 	"fmt"
-	"medical/web/controller"
+	"medical_testdemo/web/controller"
 	"net/http"
 )
 
-// 启动Web服务并指定路由信息
 func WebStart(app controller.Application) {
 
 	fs := http.FileServer(http.Dir("web/static"))

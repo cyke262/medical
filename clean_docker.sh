@@ -1,3 +1,5 @@
+cd explorer && docker-compose down -v
+cd ..
 docker rm -f $(docker ps -aq)
 docker network prune
 docker volume prune
@@ -5,6 +7,6 @@ cd fixtures && docker-compose up -d
 cd ..
 cd explorer && docker-compose up -d
 cd ..
-rm medical
+rm medical_testdemo
 go build
-./medical
+./medical_testdemo

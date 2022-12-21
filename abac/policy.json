@@ -1,0 +1,16 @@
+{
+    "CaseNum": {
+        "role": {
+            "admin": {
+                "action": "all"
+            },
+            "u1": {
+                "action": "r,w"
+            },
+            "u2": {
+                "action": "w"
+            }
+        }
+    }
+
+}

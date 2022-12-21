@@ -1,4 +1,4 @@
-module github.com/hyperledger/medical/chaincode
+module github.com/hyperledger/medical_testdemo/chaincode
 
 go 1.15
 

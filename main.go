@@ -1,15 +1,12 @@
 package main
 
 import (
-	"medical/sdkInit"
-	"medical/service"
-	"medical/web"
-	"medical/web/controller"
-
-	//"encoding/json"
 	"fmt"
+	"medical_testdemo/sdkInit"
+	"medical_testdemo/service"
+	"medical_testdemo/web"
+	"medical_testdemo/web/controller"
 	"os"
-	"strconv"
 )
 
 const (
@@ -17,7 +14,10 @@ const (
 	cc_version = "1.0.0"
 )
 
+var SetPath string
+
 func main() {
+	SetPath = "/workspace/github.com/medical_testdemo/"
 	// init orgs information
 	orgs := []*sdkInit.OrgInfo{
 		{
@@ -26,20 +26,20 @@ func main() {
 			OrgMspId:      "Org1MSP",
 			OrgUser:       "User1",
 			OrgPeerNum:    1,
-			OrgAnchorFile: "/opt/gopath/src/github.com/hyperledger/fabric-samples/medical/fixtures/channel-artifacts/Org1MSPanchors.tx",
+			OrgAnchorFile: SetPath + "fixtures/channel-artifacts/Org1MSPanchors.tx",
 		},
 	}
 
 	// init sdk env info
 	info := sdkInit.SdkEnvInfo{
 		ChannelID:        "mychannel",
-		ChannelConfig:    "/opt/gopath/src/github.com/hyperledger/fabric-samples/medical/fixtures/channel-artifacts/channel.tx",
+		ChannelConfig:    SetPath + "fixtures/channel-artifacts/channel.tx",
 		Orgs:             orgs,
 		OrdererAdminUser: "Admin",
 		OrdererOrgName:   "OrdererOrg",
 		OrdererEndpoint:  "orderer.example.com",
 		ChaincodeID:      cc_name,
-		ChaincodePath:    "/opt/gopath/src/github.com/hyperledger/fabric-samples/medical/chaincode/",
+		ChaincodePath:    SetPath + "chaincode/",
 		ChaincodeVersion: cc_version,
 	}
 
@@ -69,16 +69,17 @@ func main() {
 		fmt.Println()
 		os.Exit(-1)
 	}
-	for i := 1; i <= 5; i++ {
-		arr := [7]string{"m" + strconv.Itoa(i), "u" + strconv.Itoa(i), "p" + strconv.Itoa(i), "o" + strconv.Itoa(i), "arg", "www", "Manual"}
-		msg, err := serviceSetup.UploadMed(arr[:])
-		if err != nil {
-			fmt.Println(err.Error())
-		} else {
-			fmt.Println("信息发布成功, 交易编号为: " + msg)
+	/*
+		for i := 1; i <= 5; i++ {
+			arr := [7]string{"m" + strconv.Itoa(i), "u" + strconv.Itoa(i), "p" + strconv.Itoa(i), "o" + strconv.Itoa(i), "arg", "www", "Manual"}
+			msg, err := serviceSetup.UploadMed(arr[:])
+			if err != nil {
+				fmt.Println(err.Error())
+			} else {
+				fmt.Println("信息发布成功, 交易编号为: " + msg)
+			}
 		}
-	}
-
+	*/
 	app := controller.Application{
 		Setup: serviceSetup,
 	}

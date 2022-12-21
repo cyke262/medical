@@ -37,7 +37,3 @@ type SdkEnvInfo struct {
 	ChaincodePath    string
 	ChaincodeVersion string
 }
-
-
-
-

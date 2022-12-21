@@ -3,13 +3,11 @@ package controller
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/jmoiron/sqlx"
 	"math"
-	"medical/service"
+	"medical_testdemo/service"
 	"net/http"
 	"reflect"
-
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/jmoiron/sqlx"
 )
 
 var cuser User
@@ -28,15 +26,10 @@ func (app *Application) Index(w http.ResponseWriter, r *http.Request) {
 func (app *Application) Login(w http.ResponseWriter, r *http.Request) {
 	loginName := r.FormValue("loginName")
 	password := r.FormValue("password")
+	result, _ := app.Setup.UserLogin(loginName, password)
 
 	var flag bool
-	for _, user := range users {
-		if user.LoginName == loginName && user.Password == password {
-			cuser = user
-			flag = true
-			break
-		}
-	}
+	flag = result
 	data.CurrentUser = cuser
 	data.Flag = false
 
@@ -54,21 +47,26 @@ func (app *Application) Login(w http.ResponseWriter, r *http.Request) {
 // 用户登出
 func (app *Application) LoginOut(w http.ResponseWriter, r *http.Request) {
 	cuser = User{}
-	ShowView(w, r, "login.html", nil)
+	result, _ := app.Setup.UserLoginOut()
+	if result {
+		ShowView(w, r, "login.html", nil)
+	}
 }
 
 func (app *Application) UploadMed(w http.ResponseWriter, r *http.Request) {
 	data.CurrentUser = cuser
 	data.Flag = true
 	data.Msg = ""
+	arr := [17]string{r.FormValue("groups"), r.FormValue("subjectMark"), r.FormValue("name"), r.FormValue("nameInitials"), r.FormValue("caseNumber"), r.FormValue("sex"), r.FormValue("nation"), r.FormValue("diseases"), r.FormValue("medicalHistory"), r.FormValue("nativePlace"), r.FormValue("diagnose"), cuser.LoginName, r.FormValue("organization"), r.FormValue("addition1"), r.FormValue("addition2"), r.FormValue("addition3"), r.FormValue("status")}
+	if arr[1] != "" {
+		transactionID, err := app.Setup.UploadMed(arr[:])
 
-	arr := [7]string{r.FormValue("medicalRecordID"), cuser.LoginName, r.FormValue("patientID"), r.FormValue("organizationID"), r.FormValue("dataField"), r.FormValue("data"), r.FormValue("entryMethod")}
-	transactionID, err := app.Setup.UploadMed(arr[:])
+		if err != nil {
+			data.Msg = err.Error()
+		} else {
+			data.Msg = "信息添加成功:" + transactionID
+		}
 
-	if err != nil {
-		data.Msg = err.Error()
-	} else {
-		data.Msg = "信息添加成功:" + transactionID
 	}
 	ShowView(w, r, "uploadMed.html", data)
 }
@@ -76,11 +74,6 @@ func (app *Application) UploadMed(w http.ResponseWriter, r *http.Request) {
 func (app *Application) OperateMed(w http.ResponseWriter, r *http.Request) {
 	data.CurrentUser = cuser
 	ShowView(w, r, "operateMed.html", data)
-}
-
-func (app *Application) AuditMed(w http.ResponseWriter, r *http.Request) {
-	data.CurrentUser = cuser
-	ShowView(w, r, "auditMed.html", data)
 }
 
 func (app *Application) AccessMed(w http.ResponseWriter, r *http.Request) {
@@ -91,20 +84,12 @@ func (app *Application) AccessMed(w http.ResponseWriter, r *http.Request) {
 	ShowView(w, r, "accessMed.html", data)
 }
 
-func (app *Application) AccessMedHistory(w http.ResponseWriter, r *http.Request) {
-	data.CurrentUser = cuser
-	data.Msg = ""
-	data.Flag = false
-	data.History = true
-	ShowView(w, r, "accessMedHistory.html", data)
-}
-
 func (app *Application) AccessMedResult(w http.ResponseWriter, r *http.Request) {
 	arr := [4]string{r.FormValue("operationRecordID"), cuser.LoginName, r.FormValue("organisationID"), r.FormValue("medicalRecordID")}
 	var result []byte
 	var err error
 	if data.History {
-		result, err = app.Setup.GetMedHistory(arr[:])
+		// result, err = app.Setup.GetMedHistory(arr[:])
 	} else {
 		result, err = app.Setup.OperateMed(arr[:])
 	}
@@ -126,34 +111,46 @@ func (app *Application) AccessMedResult(w http.ResponseWriter, r *http.Request) 
 	}
 }
 
-func (app *Application) UpdateMed(w http.ResponseWriter, r *http.Request) {
-	data.CurrentUser = cuser
-	data.Flag = true
-	data.Msg = ""
-	arr := [5]string{r.FormValue("operationRecordID"), cuser.LoginName, r.FormValue("organisationID"), r.FormValue("medicalRecordID"), r.FormValue("medicalRecordData")}
-	transactionID, err := app.Setup.UpdateMed(arr[:])
-
-	if err != nil {
-		data.Msg = err.Error()
-	} else {
-		data.Msg = "医疗记录删除成功:" + transactionID
-	}
-	ShowView(w, r, "updateMed.html", data)
-}
-
 func (app *Application) DeleteMed(w http.ResponseWriter, r *http.Request) {
 	data.CurrentUser = cuser
 	data.Flag = true
 	data.Msg = ""
 	arr := [4]string{r.FormValue("operationRecordID"), cuser.LoginName, r.FormValue("organisationID"), r.FormValue("medicalRecordID")}
 	transactionID, err := app.Setup.DeleteMed(arr[:])
+	if err != nil {
+		data.Msg = err.Error()
+	} else {
+		data.Msg = "信息删除成功:" + transactionID
+	}
+	ShowView(w, r, "deleteMed.html", data)
+}
+
+func (app *Application) UpdateMed(w http.ResponseWriter, r *http.Request) {
+	data.CurrentUser = cuser
+	data.Flag = true
+	data.Msg = ""
+	arr := [17]string{r.FormValue("groups"), r.FormValue("subjectMark"), r.FormValue("name"), r.FormValue("nameInitials"), r.FormValue("caseNumber"), r.FormValue("sex"), r.FormValue("nation"), r.FormValue("diseases"), r.FormValue("medicalHistory"), r.FormValue("nativePlace"), r.FormValue("diagnose"), cuser.LoginName, r.FormValue("organization"), r.FormValue("addition1"), r.FormValue("addition2"), r.FormValue("addition3"), r.FormValue("status")}
+	transactionID, err := app.Setup.UpdateMed(arr[:])
 
 	if err != nil {
 		data.Msg = err.Error()
 	} else {
-		data.Msg = "医疗记录删除成功:" + transactionID
+		data.Msg = "信息修改成功:" + transactionID
 	}
-	ShowView(w, r, "deleteMed.html", data)
+	ShowView(w, r, "updateMed.html", data)
+}
+
+func (app *Application) AuditMed(w http.ResponseWriter, r *http.Request) {
+	data.CurrentUser = cuser
+	ShowView(w, r, "auditMed.html", data)
+}
+
+func (app *Application) AccessMedHistory(w http.ResponseWriter, r *http.Request) {
+	data.CurrentUser = cuser
+	data.Msg = ""
+	data.Flag = false
+	data.History = true
+	ShowView(w, r, "accessMedHistory.html", data)
 }
 
 func (app *Application) AuditAllRecords(w http.ResponseWriter, r *http.Request) {
@@ -445,10 +442,10 @@ func (app *Application) AuditReportResult(w http.ResponseWriter, r *http.Request
 		//}
 		var (
 			userName  string = "root"
-			password  string = "2001"
+			password  string = "root"
 			ipAddrees string = "127.0.0.1"
 			port      int    = 3306
-			dbName    string = "medical"
+			dbName    string = "itbtsql"
 		)
 
 		dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?allowNativePasswords=true", userName, password, ipAddrees, port, dbName)

@@ -1,7 +1,5 @@
 package sdkInit
 
-
-
 import (
 	"fmt"
 	"github.com/hyperledger/fabric-sdk-go/pkg/common/errors/retry"
