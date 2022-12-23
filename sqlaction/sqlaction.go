@@ -8,12 +8,13 @@ import (
 	"database/sql"
 	"encoding/hex"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql" //初始化
 	_ "hash/fnv"
 	"math/rand"
 	_ "math/rand"
 	"strings"
 	"time"
+
+	_ "github.com/go-sql-driver/mysql" //初始化
 )
 
 //写到服务层里面，所有字段用于和数据库对接（服务层调用数据库和链码）

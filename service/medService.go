@@ -4,8 +4,9 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"github.com/hyperledger/fabric-sdk-go/pkg/client/channel"
 	"medical_testdemo/sqlaction"
+
+	"github.com/hyperledger/fabric-sdk-go/pkg/client/channel"
 )
 
 func (t *ServiceSetup) UploadMed(args []string) (string, error) {
@@ -48,6 +49,11 @@ func (t *ServiceSetup) OperateMed(args []string) ([]byte, error) {
 	if len(args) != 4 {
 		return []byte{0x00}, fmt.Errorf("给定的参数个数不符合要求！")
 	}
+	DB := InitDB()
+	casenumer := args[0]
+	if !CheckAction(DB, casenumer, "r") {
+		return nil, fmt.Errorf("权限不足，无法操作")
+	}
 	eventID := "eventAccessMed"
 	reg, notifier := regitserEvent(t.Client, t.ChaincodeID, eventID)
 	defer t.Client.UnregisterChaincodeEvent(reg)
@@ -61,7 +67,7 @@ func (t *ServiceSetup) OperateMed(args []string) ([]byte, error) {
 	if err1 != nil {
 		return []byte{0x00}, err1
 	}
-	DB := InitDB()
+
 	mp := SelectDBSingle(DB, args)
 	if mp == nil {
 		return []byte{0x00}, fmt.Errorf("数据库查询不成功！")
@@ -79,6 +85,11 @@ func (t *ServiceSetup) DeleteMed(args []string) (string, error) {
 		return "", fmt.Errorf("给定的参数个数不符合要求！")
 	}
 	DB := InitDB()
+	// DB := InitDB()
+	casenumer := args[0]
+	if !CheckAction(DB, casenumer, "d") {
+		return "", fmt.Errorf("权限不足，无法操作")
+	}
 	if !DeleteDB(DB, args) {
 		return "", fmt.Errorf("删除数据不成功！")
 	}
@@ -104,6 +115,10 @@ func (t *ServiceSetup) UpdateMed(args []string) (string, error) {
 		return "", fmt.Errorf("给定的参数个数不符合要求！")
 	}
 	DB := InitDB()
+	casenumer := args[0]
+	if !CheckAction(DB, casenumer, "w") {
+		return "", fmt.Errorf("权限不足，无法操作")
+	}
 	if !UpdateDB(DB, args) {
 		return "", fmt.Errorf("数据库修改不成功！")
 	}

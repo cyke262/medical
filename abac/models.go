@@ -16,11 +16,10 @@ type Date2DB struct {
 
 // 主体
 type Sub struct {
-	UID        string `json:"uid"`        // 作为某个人的外键，进而可以指到某个具体的人，和那个样本标识符是一个样的 具有唯一性
-	Department string `json:"department"` //TODO： 目前可设置 为空，后期可能会删除。
-	Role       string `json:"role"`       // role of the subject, 可取值为："Adminstor"，“u1”，“u2”，“u3”
-	Group      string `json:"group"`      // 疾病种类，也就算研究方向,eg：精神病 or 心脏病；
-	Org        string `json:"org"`        //隶属机构, e.g.: 北大六院
+	UID   string `json:"uid"`   // 作为某个人的外键，进而可以指到某个具体的人，和那个样本标识符是一个样的 具有唯一性
+	Role  string `json:"role"`  // role of the subject, 可取值为："Adminstor"，“u1”，“u2”，“u3”
+	Group string `json:"group"` // 疾病种类，也就算研究方向,eg：精神病 or 心脏病；
+	Org   string `json:"org"`   //隶属机构, e.g.: 北大六院
 }
 
 // sub转码为json

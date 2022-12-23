@@ -17,7 +17,8 @@ const (
 var SetPath string
 
 func main() {
-	SetPath = "/workspace/github.com/medical_testdemo/"
+	// SetPath = "/workspace/github.com/medical_testdemo/"
+	SetPath = "/Users/monk/code/go/src/medical/"
 	// init orgs information
 	orgs := []*sdkInit.OrgInfo{
 		{
