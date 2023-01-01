@@ -19,3 +19,8 @@ kill -9 xxx
 区块链浏览器启动后在`localhost:8080`进行访问
 
 关闭区块链浏览器后输入docker-compose down -v
+
+## 虚拟机环境
+
+夸克网盘链接：https://pan.quark.cn/s/4f4afd35cd55
+提取码：XDLM
