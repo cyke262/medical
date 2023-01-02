@@ -15,34 +15,6 @@
       <div class="queryResule">
           <h2>医疗记录查询结果</h2>
           {{if .History}}
-            <div id="tableDiv">
-                <table id="table" style="margin: 0 auto;">
-                    <tr>
-                        <td>医疗记录ID</td>
-                        <td>用户ID</td>
-                        <td>病人ID</td>
-                        <td>组织（医院）ID</td>
-                        <td>记录类型</td>
-                        <td>数据类型</td>
-                        <td>数据值</td>
-                        <td>输入方法</td>
-                        <td>时间</td>
-                    </tr>
-                    {{range .Med.Historys}}
-                        <tr>
-                            <td>{{.MedicalRecord.MedicalRecordID}}</td>
-                            <td>{{.MedicalRecord.UserID}}</td>
-                            <td>{{.MedicalRecord.PatientID}}</td>
-                            <td>{{.MedicalRecord.OrganizationID}}</td>
-                            <td>{{.MedicalRecord.DataType}}</td>
-                            <td>{{.MedicalRecord.DataField}}</td>
-                            <td>{{.MedicalRecord.Data}}</td>
-                            <td>{{.MedicalRecord.EntryMethod}}</td>
-                            <td>{{.MedicalRecord.Time}}</td>
-                        </tr>
-                    {{end}}
-                </table>
-            </div>
           {{end}}
           <div class="top">
               <div class="middle">
