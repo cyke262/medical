@@ -50,9 +50,10 @@ func (mt *MyTree) Search(policy []interface{}) bool {
 	node := mt.Root
 	for i := 0; i < len(policy); i++ {
 		_, ok := node.children[policy[i]]
-		// fmt.Println("ok", policy[i])
+		// fmt.Println("ok", policy[i], len(policy), i)
 
 		if !ok {
+			// fmt.Println(ok, policy[i], len(policy), i)
 			return false
 		}
 		node = node.children[policy[i]]
@@ -123,30 +124,6 @@ func PolicyToTree(policy *Policy) *MyTree {
 		}
 		tree.Append(value)
 	}
-	// for _, rule := range policy.SubRules {
-	// 	var value []interface{}
-	// 	// fmt.Println(reflect.TypeOf(rule))
-
-	// 	// values := dataProcess(rule)
-	// 	values := strings.Split(rule, ",")
-	// 	// fmt.Println(values)
-	// 	for _, v := range values {
-	// 		fmt.Println(v)
-	// 		if v == "action:rw" {
-	// 			if !f {
-	// 				value = append(value, "action:r")
-	// 				f = true
-	// 			} else {
-	// 				value = append(value, "action:w")
-	// 				f = false
-	// 			}
-	// 		} else {
-	// 			value = append(value, v)
-	// 		}
-	// 		fmt.Println(value)
-	// 	}
-	// 	tree.Append(value)
-	// }
 	return tree
 }
 

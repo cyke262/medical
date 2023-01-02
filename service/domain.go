@@ -238,6 +238,70 @@ func GeneratePolicy(DB *sql.DB, casenumber string) string {
 	return policy
 }
 
+// func CheckAction(DB *sql.DB, casenumber string, action string) bool {
+
+// 	var uid string
+// 	SQLString := "select usertype from login where state='1'"
+// 	err := DB.QueryRow(SQLString).Scan(&uid)
+// 	if err == sql.ErrNoRows { //没有结果
+// 		fmt.Println("err, can't find logined user")
+// 		return false
+// 	}
+// 	var req abac.ABACRequest
+// 	req.Obj = casenumber
+// 	req.Op = action
+// 	req.Sub = uid
+
+// 	var user abac.Sub
+// 	// user.UID = uid
+// 	// var user_info string
+// 	SQLString = "select * from user_type where user_id='" + uid + "'"
+// 	err = DB.QueryRow(SQLString).Scan(&user.UID, &user.Role, &user.Org, &user.Group)
+// 	if err == sql.ErrNoRows { //没有结果
+// 		fmt.Println("err, can't find the user's information.")
+// 		return false
+// 	}
+// 	var policy string
+// 	SQLString = "select * from policy where policy_id='" + casenumber + "'"
+// 	err = DB.QueryRow(SQLString).Scan(&policy)
+
+// 	f := abac.CheckAccess(req, policy, user)
+// 	return f
+// }
+
+func CheckAction(DB *sql.DB, casenumber string, action string) bool {
+
+	var uid string
+	SQLString := "select usertype from login where state='1'"
+	err := DB.QueryRow(SQLString).Scan(&uid)
+	if err != nil { //没有结果
+		fmt.Println("err, can't find logined user")
+		return false
+	}
+	var req abac.ABACRequest
+	req.Obj = casenumber
+	req.Op = action
+	req.Sub = uid
+
+	var user abac.Sub
+	// user.UID = uid
+	// var user_info string
+	SQLString = "select * from user_type where user_id='" + uid + "'"
+	err = DB.QueryRow(SQLString).Scan(&user.UID, &user.Role, &user.Org, &user.Group)
+	if err == sql.ErrNoRows { //没有结果
+		fmt.Println("err, can't find the user's information.")
+		return false
+	}
+	// fmt.Println("user is ", user.UID, user.Role, user.Org, user.Group)
+
+	var policy string
+	SQLString = "select policy_data from policy where policy_id='" + casenumber + "'"
+	err = DB.QueryRow(SQLString).Scan(&policy)
+	// fmt.Println("policy is ", policy)
+	f := abac.CheckAccess(req, policy, user)
+	return f
+}
+
 func SelectDBSingle(DB *sql.DB, data []string) *MedicalRecord {
 	sqlString := "select * from base_info where _CaseNumber = ?"
 	stmt, _ := DB.Prepare(sqlString)

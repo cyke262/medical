@@ -103,29 +103,35 @@ func parseReq(arg string) (ABACRequest, error) {
 	req.CurTime = curtime.Unix()
 	return req, err
 }
+func IsContain(items []string, item string) bool {
+	for _, eachItem := range items {
+		if eachItem == item {
+			return true
+		}
+	}
+	return false
+}
 
 //判断是否可以获得权限
-func CheckAccess(Rargs []string, Parg string, Uargs []string) bool {
+func CheckAccess(req ABACRequest, Parg string, user Sub) bool {
 	// 第一个参数是（数据，用户，访问操作）
 	// 传的参数参数化为ABACRequest
 	// req, err := parseReq(args)
 	// eventID := args[1]
 	// TODO：这个参数是必须的，不用从数据库中调取
-	req := ABACRequest{}
-	req.Obj = Rargs[0]
-	req.Sub = Rargs[1]
-	req.Op = Rargs[2]
+	// req := ABACRequest{}
+	// req.Op = Rargs[2]
 	req.CurTime = time.Now().Unix()
 
 	// 1. get user
 	// TODO：第三个参数Uargs应该是由数据库给出，这里需要调用数据库
 	//  参数化User
-	user := Sub{}
-	user.UID = Uargs[0]
-	user.Role = Uargs[1]
-	user.Department = Uargs[2]
-	user.Org = Uargs[3]
-	user.Group = Uargs[4] //指研究方向or疾病
+	// user := Sub{}
+	// user.UID = Uargs[0]
+	// user.Role = Uargs[1]
+	// user.Department = Uargs[2]
+	// user.Org = Uargs[3]
+	// user.Group = Uargs[4] //指研究方向or疾病
 	// if user.UID ==
 
 	//2. get policy, 调用链码查询访问规则（获得到某操作对应的权限）
@@ -148,24 +154,28 @@ func CheckAccess(Rargs []string, Parg string, Uargs []string) bool {
 		fmt.Println("访问时间失效")
 		return false
 	}
+	var tra []interface{}
+	// TODO:这里需要根据数据库传参（即第二个参数，Pargs）的具体格式进行修改
+	if user.Role == "admin" {
+		return true
+
+	} else {
+		tra = []interface{}{"role:" + user.Role, "action:" + req.Op, "researce:" + user.Group}
+	}
+	// user.Org
+	org_list := strings.Split(policy.Env.AllowOrg[1:], " ")
+	fmt.Println(org_list)
+	if !IsContain(org_list, user.Org) {
+		fmt.Println("not in org_list")
+		return false
+	}
 
 	//3.2 check sub的属性，这里使用树形结构判断
 	// subrules := policy.SubRules
 	// fmt.Println("policy is :", policy)
 	ptree := PolicyToTree(&policy)
 	// // stree := m.SubRuleToTree(&user)
-	var tra []interface{}
-	// TODO:这里需要根据数据库传参（即第二个参数，Pargs）的具体格式进行修改
-	if user.Role == "admin" {
-		tra = []interface{}{"action:" + req.Op, "role:" + user.Role}
-	} else if user.UID == policy.Owner {
-		tra = []interface{}{"action:" + req.Op, "role:admin"}
 
-	} else {
-		tra = []interface{}{"action:" + req.Op, "group:" + user.Group, "role:" + user.Role}
-		// tra = []interface{}{"{\"action\":\"" + req.Op + "\",\"group\":\"" + user.Group + "\"," + "\"role\":\"" + user.Role + "\"}"}
-
-	}
 	fmt.Println(tra)
 	PreorderPrint(ptree.Root)
 	fmt.Println("")
