@@ -24,3 +24,5 @@ kill -9 xxx
 
 夸克网盘链接：https://pan.quark.cn/s/4f4afd35cd55
 提取码：XDLM
+
+登录名/root :  `jack`
