@@ -213,6 +213,7 @@ func GeneratePolicy(DB *sql.DB, casenumber string) string {
 	rows := DB.QueryRow("select _Groups,_SubjectMark,_Diseases,_Researcher,_GatherTime FROM base_info where _CaseNumber='" + casenumber + "'")
 	rows.Scan(&g, &s, &d, &r, &t)
 	result := make(map[int]string)
+	// TODO：换一下
 	result = queryDB(DB, "select insti_name from insti_coop where _CaseNumber='"+casenumber+"'")
 	for _, v := range result {
 		o = o + " " + v

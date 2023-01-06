@@ -17,8 +17,8 @@ const (
 var SetPath string
 
 func main() {
-	// SetPath = "/workspace/github.com/medical_testdemo/"
-	SetPath = "/Users/monk/code/go/src/medical/"
+	SetPath = "/workspace/github.com/medical_testdemo/"
+	// SetPath = "/Users/monk/code/go/src/medical/"
 	// init orgs information
 	orgs := []*sdkInit.OrgInfo{
 		{
@@ -45,6 +45,7 @@ func main() {
 	}
 
 	// sdk setup
+	// sdk, err := sdkInit.Setup("config_monk.yaml", &info)
 	sdk, err := sdkInit.Setup("config.yaml", &info)
 	if err != nil {
 		fmt.Println(">> SDK setup error:", err)

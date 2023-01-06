@@ -39,6 +39,8 @@ func WebStart(app controller.Application) {
 	http.HandleFunc("/auditByOriginalAuthor", app.AuditByOriginalAuthor)
 	http.HandleFunc("/auditByPatient", app.AuditByPatient)
 
+	http.HandleFunc("/dataupload", app.DataUpload)
+
 	fmt.Println("启动Web服务, 监听端口号为: 8088")
 	err := http.ListenAndServe(":8088", nil)
 	if err != nil {

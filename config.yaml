@@ -217,4 +217,3 @@ entityMatchers:
       urlSubstitutionExp: ${1}.org1.example.com:${2}
       sslTargetOverrideUrlSubstitutionExp: ${1}.org1.example.com
       mappedHost: peer0.org1.example.com
-

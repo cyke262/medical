@@ -76,6 +76,11 @@ func (app *Application) OperateMed(w http.ResponseWriter, r *http.Request) {
 	data.CurrentUser = cuser
 	ShowView(w, r, "operateMed.html", data)
 }
+func (app *Application) DataUpload(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("进入数据上传页面")
+	data.CurrentUser = cuser
+	ShowView(w, r, "数据上传.html", data)
+}
 
 func (app *Application) AccessMed(w http.ResponseWriter, r *http.Request) {
 	data.CurrentUser = cuser
