@@ -1,4 +1,4 @@
-module medical_testdemo
+module medical
 
 go 1.15
 

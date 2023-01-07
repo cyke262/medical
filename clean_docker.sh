@@ -7,6 +7,6 @@ cd fixtures && docker-compose up -d
 cd ..
 cd explorer && docker-compose up -d
 cd ..
-rm medical_testdemo
+rm medical
 go build
-./medical_testdemo
+./medical

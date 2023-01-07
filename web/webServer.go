@@ -2,7 +2,7 @@ package web
 
 import (
 	"fmt"
-	"medical_testdemo/web/controller"
+	"medical/web/controller"
 	"net/http"
 )
 

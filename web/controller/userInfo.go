@@ -1,6 +1,6 @@
 package controller
 
-import "medical_testdemo/service"
+import "medical/service"
 
 type Application struct {
 	Setup *service.ServiceSetup

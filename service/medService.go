@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"medical_testdemo/sqlaction"
+	"medical/sqlaction"
 
 	"github.com/hyperledger/fabric-sdk-go/pkg/client/channel"
 )

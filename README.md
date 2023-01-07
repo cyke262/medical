@@ -2,7 +2,7 @@
 
 添加依赖：
 ```
-cd medical_testdemo && go mod tidy
+cd medical && go mod tidy
 ```
 运行项目：
 ```
@@ -26,3 +26,21 @@ kill -9 xxx
 提取码：XDLM
 
 登录名/root :  `jack`
+
+## Ubuntu22.04虚拟机环境
+
+网盘链接：https://www.123pan.com/s/q9USVv-8d3l
+
+提取码:1J6E
+
+登录名ExcitedFrog，密码与root：19660813
+
+> 说明：
+>
+> - 区块链版本为Fabric 2.2.0，搭建步骤见https://blog.csdn.net/weixin_44165950/article/details/124857431
+> - golang版本为1.18.8
+> - 含有vscode、vim和notepad++开发环境
+> - 已更换为国内镜像源，换源步骤和内容见http://mirrors.pku.edu.cn/Help/Ubuntu，版本选择22.04
+> - MySQL版本为8.0，用户和密码都为root，端口为3306
+> - Navicat在主目录下的navicat文件夹内
+> - docker使用的是docker.io，未换源

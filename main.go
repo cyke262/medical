@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"medical_testdemo/sdkInit"
-	"medical_testdemo/service"
-	"medical_testdemo/web"
-	"medical_testdemo/web/controller"
+	"medical/sdkInit"
+	"medical/service"
+	"medical/web"
+	"medical/web/controller"
 	"os"
 )
 
@@ -17,7 +17,7 @@ const (
 var SetPath string
 
 func main() {
-	SetPath = "/workspace/github.com/medical_testdemo/"
+	SetPath = "/opt/gopath/src/github.com/hyperledger/fabric-samples/medical/"
 	// SetPath = "/Users/monk/code/go/src/medical/"
 	// init orgs information
 	orgs := []*sdkInit.OrgInfo{

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"math"
-	"medical_testdemo/service"
+	"medical/service"
 	"net/http"
 	"reflect"
 

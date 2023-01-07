@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 	_ "hash/fnv"
-	"medical_testdemo/abac"
-	"medical_testdemo/sdkInit"
+	"medical/abac"
+	"medical/sdkInit"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql" //初始化
