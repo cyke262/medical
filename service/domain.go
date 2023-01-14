@@ -210,14 +210,13 @@ func InsertDB(DB *sql.DB, data []string, casenumber string) bool {
 
 func GeneratePolicy(DB *sql.DB, casenumber string) string {
 	var g, s, d, r, o, t string
-	rows := DB.QueryRow("select _Groups,_SubjectMark,_Diseases,_Researcher,_GatherTime FROM base_info where _CaseNumber='" + casenumber + "'")
-	rows.Scan(&g, &s, &d, &r, &t)
-	result := make(map[int]string)
-	// TODO：换一下
-	result = queryDB(DB, "select insti_name from insti_coop where _CaseNumber='"+casenumber+"'")
-	for _, v := range result {
-		o = o + " " + v
-	}
+	rows := DB.QueryRow("select _Groups,_SubjectMark,_Diseases,_Researcher,_Organization,_GatherTime FROM base_info where _CaseNumber='" + casenumber + "'")
+	rows.Scan(&g, &s, &d, &r, &o, &t)
+	// result := make(map[int]string)
+	// result = queryDB(DB, "select insti_name from insti_coop where _CaseNumber='"+casenumber+"'")
+	// for _, v := range result {
+	// 	o = o + " " + v
+	// }
 	attr := abac.Date2DB{
 		Groups:       g,
 		SubjectMark:  s,

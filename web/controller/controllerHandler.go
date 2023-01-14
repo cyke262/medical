@@ -4,9 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"math"
+	"medical/abac"
 	"medical/service"
 	"net/http"
 	"reflect"
+	"strconv"
+	"strings"
+	"time"
 
 	"github.com/jmoiron/sqlx"
 )
@@ -25,8 +29,10 @@ func (app *Application) Index(w http.ResponseWriter, r *http.Request) {
 
 // 用户登录
 func (app *Application) Login(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("---------------调用controllerhandle login-----------------")
 	loginName := r.FormValue("loginName")
 	password := r.FormValue("password")
+	fmt.Println("the loginname is ", loginName, " and the password is ", password)
 	result, _ := app.Setup.UserLogin(loginName, password)
 
 	var flag bool
@@ -36,12 +42,15 @@ func (app *Application) Login(w http.ResponseWriter, r *http.Request) {
 
 	if flag {
 		// 登录成功
+		// TODO: 这里路由有问题，改一下。
 		ShowView(w, r, "index.html", data)
+		// app.Index(w, r)
 	} else {
 		// 登录失败
 		data.Flag = true
 		data.CurrentUser.LoginName = loginName
 		ShowView(w, r, "login.html", data)
+		// app.LoginView(w, r)
 	}
 }
 
@@ -55,21 +64,58 @@ func (app *Application) LoginOut(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *Application) UploadMed(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("---------------调用controllerhandle UploadMed-----------------")
 	data.CurrentUser = cuser
 	data.Flag = true
 	data.Msg = ""
-	arr := [17]string{r.FormValue("groups"), r.FormValue("subjectMark"), r.FormValue("name"), r.FormValue("nameInitials"), r.FormValue("caseNumber"), r.FormValue("sex"), r.FormValue("nation"), r.FormValue("diseases"), r.FormValue("medicalHistory"), r.FormValue("nativePlace"), r.FormValue("diagnose"), cuser.LoginName, r.FormValue("organization"), r.FormValue("addition1"), r.FormValue("addition2"), r.FormValue("addition3"), r.FormValue("status")}
+	// TODO：这里要用go解析文件然后将文件内容存到数据库中，然后在baseinfo里加一个数据本体，之后按格式插入即可
+	// TODO：这里还没做，暂时先空着
+	// TODO：subject目前由后端生成为当前时间戳
+	subjectmark := strconv.FormatInt(time.Now().Unix(), 10)
+	datafiles := r.FormValue("datafiles")
+	arr := [17]string{subjectmark, datafiles}
+
+	fmt.Println("datafiles is ", arr)
+	ShowView(w, r, "02医疗数据上传.html", data)
 	if arr[1] != "" {
-		transactionID, err := app.Setup.UploadMed(arr[:])
+		info, err := app.Setup.UploadMed(arr[:])
+		fmt.Println("info is ", info)
+		transactionID := strings.Split(info, "-")[0]
+		policy := strings.Split(info, "=")[1]
+		fmt.Println("policy is ", policy)
 
 		if err != nil {
 			data.Msg = err.Error()
 		} else {
+			var p abac.Policy
+			err = json.Unmarshal([]byte(policy), &p)
 			data.Msg = "信息添加成功:" + transactionID
+			data.Policy = p
 		}
-
+		app.DataUpload(w, r)
+		fmt.Println("上传数据后生成的策略为：", data.Policy)
 	}
-	ShowView(w, r, "uploadMed.html", data)
+}
+
+func (app *Application) ManageMed(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("---------------调用controllerhandle ManageMed-----------------")
+	// data.CurrentUser = cuser
+	// user, err := json.Marshal(cuser)
+	// info, err := app.Setup.AllData(string(user))
+	// if err != nil {
+	// 	data.Msg = err.Error()
+	// } else {
+	// 	fmt.Println("info is ", info)
+	// 	transactionID := strings.Split(info, "-")[0]
+	// 	policy := strings.Split(info, "=")[1]
+	// 	fmt.Println("policy is ", policy)
+
+	// 	var p abac.Policy
+	// 	err = json.Unmarshal([]byte(policy), &p)
+	// 	data.Msg = "信息添加成功:" + transactionID
+	// 	// data.Med = p
+	// }
+	ShowView(w, r, "02医疗数据管理.html", data)
 }
 
 func (app *Application) OperateMed(w http.ResponseWriter, r *http.Request) {
@@ -79,6 +125,7 @@ func (app *Application) OperateMed(w http.ResponseWriter, r *http.Request) {
 func (app *Application) DataUpload(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("进入数据上传页面")
 	data.CurrentUser = cuser
+	fmt.Println("数据为：", data.Msg)
 	ShowView(w, r, "数据上传.html", data)
 }
 
@@ -98,6 +145,7 @@ func (app *Application) AccessMedResult(w http.ResponseWriter, r *http.Request) 
 		// result, err = app.Setup.GetMedHistory(arr[:])
 	} else {
 		result, err = app.Setup.OperateMed(arr[:])
+		fmt.Println("the result is:", result)
 	}
 	var med = service.MedicalRecord{}
 	json.Unmarshal(result, &med)

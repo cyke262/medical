@@ -1,6 +1,9 @@
 package controller
 
-import "medical/service"
+import (
+	"medical/abac"
+	"medical/service"
+)
 
 type Application struct {
 	Setup *service.ServiceSetup
@@ -21,6 +24,7 @@ type Data struct {
 	Ops         service.OperationRecordArr
 	Repo        service.AuditReport //*新增：审计报告格式
 	AuditString string
+	Policy      abac.Policy
 }
 
 var users []User

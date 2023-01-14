@@ -208,19 +208,19 @@
         // 提交按钮
         $('.btn').click(function () {
             // 如果为空 报错提示
-            for (var i = 0; i < inputs.length; i++) {
-                if (!($(inputs[i]).val())) {
-                    $(inputs[i]).addClass('redColor');
-                    $('#myModal').modal('show');
-                    setTimeout(function () {
-                        $("#myModal").modal("hide");
-                    }, 2000);
-                    return;
-                }
-            }
+            // for (var i = 0; i < inputs.length; i++) {
+            //     if (!($(inputs[i]).val())) {
+            //         $(inputs[i]).addClass('redColor');
+            //         $('#myModal').modal('show');
+            //         setTimeout(function () {
+            //             $("#myModal").modal("hide");
+            //         }, 2000);
+            //         return;
+            //     }
+            // }
 
             // 成功后提交数据
-            $(location).attr('href','dataupload');
+            // $(location).attr('href','dataupload');
             // $(location).attr('href','index.html');
             $("form[name='uploadMedForm']").submit()
         })

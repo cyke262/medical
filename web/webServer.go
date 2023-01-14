@@ -19,6 +19,8 @@ func WebStart(app controller.Application) {
 	http.HandleFunc("/index", app.Index)
 
 	http.HandleFunc("/uploadMed", app.UploadMed)
+	http.HandleFunc("/manageMed", app.ManageMed)
+	// http.HandleFunc("/uploadOldMed", app.UploadOldMed)
 	http.HandleFunc("/operateMed", app.OperateMed)
 	http.HandleFunc("/auditMed", app.AuditMed)
 

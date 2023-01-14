@@ -11,16 +11,30 @@ import (
 
 func (t *ServiceSetup) UploadMed(args []string) (string, error) {
 	DB := InitDB()
-	args[11] = sqlaction.GetUserLogin(DB, "select username from login where state='1'") //确定用户名
-	var casenumer, policy, mess string
+	var groups, owner, usertype, org, disease, casenumer, policy, mess string
+	// owner := sqlaction.GetUserLogin(DB, "select username from login where state='1'") //确定用户名
+	rows := DB.QueryRow("select username,usertype from login where state='1'")
+	rows.Scan(&owner, &usertype)
+	rows = DB.QueryRow("select user_insti, user_disease from user_type where user_id='" + usertype + "'")
+	rows.Scan(&org, &disease)
+	// TODO: Groups由哪里获得
+	groups = "xxx"
+	arr := [17]string{}
+	// args[0]是subject，1是txt
+	arr[0] = groups
+	arr[1] = args[0]
+	arr[7] = disease
+	arr[11] = owner
+	arr[12] = org
 	policy = ""
-	casenumer = sqlaction.GetCaseNumber(args)
-	if !InsertDB(DB, args, casenumer) {
+	casenumer = sqlaction.GetCaseNumber(arr[:])
+	// TODO: 这里数据添加，数据不全，后面问一下
+	if !InsertDB(DB, arr[:], casenumer) {
 		return "", fmt.Errorf("数据库插入不成功！")
 	} else {
 		if InsertDB2Insti(DB, casenumer) {
 			policy = GeneratePolicy(DB, casenumer)
-			//fmt.Println(policy)
+			fmt.Println(policy)
 		}
 	}
 	eventID := "eventUploadMed"
@@ -45,6 +59,9 @@ func (t *ServiceSetup) UploadMed(args []string) (string, error) {
 	return mess, nil
 }
 
+// func (t *ServiceSetup) AllData(user string) (string, error) {
+
+// }
 func (t *ServiceSetup) OperateMed(args []string) ([]byte, error) {
 	if len(args) != 4 {
 		return []byte{0x00}, fmt.Errorf("给定的参数个数不符合要求！")
