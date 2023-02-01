@@ -56,7 +56,7 @@ cd /opt/GoLand-2021.3.3/bin/
 
 网盘链接：https://www.123pan.com/s/q9USVv-D93l
 
-提取码:AhIn
+提取码：AhIn
 
 登录名ExcitedFrog，密码与root：19660813
 
