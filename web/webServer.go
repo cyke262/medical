@@ -13,8 +13,14 @@ func WebStart(app controller.Application) {
 
 	// 指定路由信息(匹配请求)
 	http.HandleFunc("/", app.LoginView)
+
+	// 登录
 	http.HandleFunc("/login", app.Login)
 	http.HandleFunc("/loginout", app.LoginOut)
+	// 注册
+	http.HandleFunc("/register", app.Register)
+	// 忘记密码
+	http.HandleFunc("/forgotpassword", app.Forgotpassword)
 
 	http.HandleFunc("/index", app.Index)
 

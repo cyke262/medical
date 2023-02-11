@@ -92,13 +92,34 @@
           <input id="u6_input" type="password" value="" name="password" class="u6_input" title="请输入密码" />
         </div>
 
-        <!-- Unnamed (矩形) -->
+        <!-- 登录 按钮 对应表单数据 -->
         <div id="u7" class="ax_default primary_button">
-          <div id="u7_div" class=""></div>
-          <div id="u7_text" class="text ">
-            <p><span style="text-decoration:none;"><input class="btn_login btn_login_my" name="submit" accesskey="l" value="登&nbsp;&nbsp;录" tabindex="3" type="submit" title="登录"></span></p>
-          </div>
+          <button type="submit" class="u7_div" style="color:white">登录</button>
+          <!-- u7_div 复制过来作为样式声明 -->
+          <style type="text/css">
+            .u7_div {
+              border-width:0px;
+              position:absolute;
+              left:0px;
+              top:0px;
+              width:703px;
+              height:103px;
+              background:inherit;
+              background-color:rgba(22, 155, 213, 1);
+              border:none;
+              border-radius:30px;
+              -moz-box-shadow:none;
+              -webkit-box-shadow:none;
+              box-shadow:none;
+              font-family:'方正楷体简体';
+              font-weight:400;
+              font-style:normal;
+              font-size:36px;
+            }
+          </style>
         </div>
+      </div>
+    </form>
 
         <!-- Unnamed (形状) -->
         <div id="u8" class="ax_default icon">
@@ -124,21 +145,64 @@
           </div>
         </div>
 
-        <!-- Unnamed (矩形) -->
-        <div id="u11" class="ax_default link_button">
-          <div id="u11_div" class=""></div>
-          <div id="u11_text" class="text ">
-            <p><span style="text-decoration:none;">忘记密码?</span></p>
-          </div>
-        </div>
+    <form id="fm2" action="/forgotpassword" method="post" autocomplete="off">
+      <!-- Unnamed (矩形) -->
+      <div id="u11" class="ax_default link_button">
+        <button type="submit" class="u11_div">忘记密码?</button>
+        <style type="text/css">
+          .u11_div {
+            border-width:0px;
+            position:absolute;
+            left:0px;
+            top:0px;
+            width:210px;
+            height:65px;
+            background:inherit;
+            background-color:rgba(255, 255, 255, 0);
+            border:none;
+            border-radius:0px;
+            -moz-box-shadow:none;
+            -webkit-box-shadow:none;
+            box-shadow:none;
+            font-family:'方正楷体简体';
+            font-weight:400;
+            font-style:normal;
+            font-size:36px;
+            color:rgba(22, 155, 213, 0.796078431372549);
+          }
+        </style>
+      </div>
+    </form>
 
-        <!-- Unnamed (矩形) -->
-        <div id="u12" class="ax_default link_button">
-          <div id="u12_div" class=""></div>
-          <div id="u12_text" class="text ">
-            <p><span style="text-decoration:none;">注册</span></p>
-          </div>
-        </div>
+    <!-- Unnamed (矩形) -->
+    <form id="fm3" action="/register" method="post" autocomplete="off">
+      <!-- Unnamed (矩形) -->
+      <div id="u12" class="ax_default link_button">
+        <button type="submit" class="u12_div">注册</button>
+        <style type="text/css">
+          .u12_div {
+            border-width:0px;
+            position:absolute;
+            left:0px;
+            top:0px;
+            width:127px;
+            height:65px;
+            background:inherit;
+            background-color:rgba(255, 255, 255, 0);
+            border:none;
+            border-radius:0px;
+            -moz-box-shadow:none;
+            -webkit-box-shadow:none;
+            box-shadow:none;
+            font-family:'方正楷体简体';
+            font-weight:400;
+            font-style:normal;
+            font-size:36px;
+            color:rgba(22, 155, 213, 0.796078431372549);
+          }
+        </style>
+      </div>
+    </form>
 
         <!-- Unnamed (矩形) -->
         <div id="u13" class="ax_default _一级标题">
@@ -156,7 +220,8 @@
           </div>
         </div>
       </div>
-    </form>
+
+
   </div>
   <script src="static/resources/scripts/axure/ios.js"></script>
 </body>

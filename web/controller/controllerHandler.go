@@ -63,6 +63,18 @@ func (app *Application) LoginOut(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// 忘记密码? Forgotpassword
+func (app *Application) Forgotpassword(w http.ResponseWriter, r *http.Request) {
+
+	ShowView(w, r, "forgotpassword.html", nil)
+}
+
+//注册 Register
+func (app *Application) Register(w http.ResponseWriter, r *http.Request) {
+
+	ShowView(w, r, "register.html", nil)
+}
+
 func (app *Application) UploadMed(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("---------------调用controllerhandle UploadMed-----------------")
 	data.CurrentUser = cuser
