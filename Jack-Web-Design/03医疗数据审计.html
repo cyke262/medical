@@ -508,15 +508,15 @@
       <div id="u1861" class="ax_default primary_button">
         <div id="u1861_div" class=""></div>
         <div id="u1861_text" class="text ">
-          <p><span style="text-decoration:none;">选择时间段</span></p>
+          <p><span style="text-decoration:none;">选择审计时间段</span></p>
         </div>
       </div>
 
       <!-- Unnamed (形状) -->
       <div id="u1862" class="ax_default primary_button">
-        <img id="u1862_img" class="img " src="images/03医疗数据审计/u1862.svg"/>
-        <div id="u1862_text" class="text ">
-          <p><span style="text-decoration:none;">选择待审计对象</span></p>
+        <div id="u1861_div" class=""></div>
+        <div id="u1861_text" class="text ">
+          <p><span style="text-decoration:none;">提供一个审计ID</span></p>
         </div>
       </div>
 
@@ -524,7 +524,7 @@
       <div id="u1863" class="ax_default primary_button">
         <div id="u1863_div" class=""></div>
         <div id="u1863_text" class="text ">
-          <p><span style="text-decoration:none;">选择待审计机构</span></p>
+          <p><span style="text-decoration:none;">待审计机构ID</span></p>
         </div>
       </div>
 
@@ -540,7 +540,7 @@
       <div id="u1865" class="ax_default primary_button">
         <div id="u1865_div" class=""></div>
         <div id="u1865_text" class="text ">
-          <p><span style="text-decoration:none;">选择待审计用户</span></p>
+          <p><span style="text-decoration:none;">您的机构ID</span></p>
         </div>
       </div>
 
@@ -555,7 +555,7 @@
       <!-- 邮箱-注册 (文本框) -->
       <div id="u1867" class="ax_default text_field" data-label="邮箱-注册">
         <div id="u1867_div" class=""></div>
-        <input id="u1867_input" type="date" value="" class="u1867_input"/>
+        <input id="u1867_input" type="date" value="" class="u1867_input" name="startTime"/>
       </div>
 
       <!-- Unnamed (矩形) -->
@@ -569,32 +569,25 @@
       <!-- 邮箱-注册 (文本框) -->
       <div id="u1869" class="ax_default text_field" data-label="邮箱-注册">
         <div id="u1869_div" class=""></div>
-        <input id="u1869_input" type="date" value="" class="u1869_input"/>
+        <input id="u1869_input" type="date" value="" class="u1869_input" name="endTime"/>
       </div>
 
       <!-- 请输入数据ID (文本框) -->
-      <div id="u1870" class="ax_default text_field" data-label="请输入数据ID" title="请输入账号">
+      <div id="u1870" class="ax_default text_field" data-label="提供一个审计ID" title="请输入账号">
         <div id="u1870_div" class=""></div>
-        <input id="u1870_input" type="text" value="" class="u1870_input" title="请输入账号"/>
+        <input id="u1870_input" type="text" value="" class="u1870_input" title="请输入账号" name="auditRecordID0"/>
       </div>
 
       <!-- 请输入用户ID (文本框) -->
-      <div id="u1871" class="ax_default text_field" data-label="请输入用户ID" title="请输入账号">
+      <div id="u1871" class="ax_default text_field" data-label="请输入您的组织ID" title="请输入账号">
         <div id="u1871_div" class=""></div>
-        <input id="u1871_input" type="text" value="" class="u1871_input" title="请输入账号"/>
+        <input id="u1871_input" type="text" value="" class="u1871_input" title="请输入账号" name="orgnisationID"/>
       </div>
 
       <!-- 组织机构 (下拉列表框) -->
-      <div id="u1872" class="ax_default droplist" data-label="组织机构" title="组织机构">
-        <div id="u1872_div" class=""></div>
-        <select id="u1872_input" class="u1872_input" title="组织机构">
-          <option class="u1872_input_option" selected value="                     组织机构">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 组织机构</option>
-          <option class="u1872_input_option" value="                     天津大学">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 天津大学</option>
-          <option class="u1872_input_option" value="                     北京大学">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 北京大学</option>
-          <option class="u1872_input_option" value="                     山东大学">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 山东大学</option>
-          <option class="u1872_input_option" value="                     北大六院">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 北大六院</option>
-          <option class="u1872_input_option" value="                     北京天坛">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 北京天坛</option>
-        </select>
+      <div id="u1872" class="ax_default text_field" data-label="请输入待审计组织ID" title="请输入账号">
+        <div id="u1871_div" class=""></div>
+        <input id="u1871_input" type="text" value="" class="u1871_input" title="" name="auditOrg"/>
       </div>
     </div>
     <script src="resources/scripts/axure/ios.js"></script>
