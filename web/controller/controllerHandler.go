@@ -69,7 +69,7 @@ func (app *Application) Forgotpassword(w http.ResponseWriter, r *http.Request) {
 	ShowView(w, r, "forgotpassword.html", nil)
 }
 
-//注册 Register
+// 注册 Register
 func (app *Application) Register(w http.ResponseWriter, r *http.Request) {
 
 	ShowView(w, r, "register.html", nil)
@@ -421,7 +421,7 @@ func (app *Application) AuditReportResult(w http.ResponseWriter, r *http.Request
 		result0, err0 := app.Setup.AuditTimeRange(arr[:])
 		var ops0 = service.OperationRecordArr{}
 		json.Unmarshal(result0, &ops0)
-		arr = []string{r.FormValue("auditRecordID1"), cuser.LoginName, r.FormValue("organisationID"), r.FormValue("auditOrg")}
+		arr = []string{r.FormValue("auditRecordID0") + "000", cuser.LoginName, r.FormValue("organisationID"), r.FormValue("auditOrg")}
 		result1, err1 := app.Setup.AuditOrganisation(arr[:])
 		var ops1 = service.OperationRecordArr{}
 		json.Unmarshal(result1, &ops1)
