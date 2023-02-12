@@ -585,7 +585,8 @@ func (app *Application) AuditReportResult(w http.ResponseWriter, r *http.Request
 		data.Repo = repo
 
 		if reflect.DeepEqual(ops, service.OperationRecordArr{}) {
-			ShowView(w, r, "auditReportByTimeRangeAndOrg.html", nil)
+			ShowView(w, r, "auditReportResult.html", data)
+			//ShowView(w, r, "03医疗数据审计.html", data)
 		} else {
 			ShowView(w, r, "auditReportResult.html", data)
 		}
@@ -601,7 +602,7 @@ func (app *Application) AuditReportByTimeRangeAndOrg(w http.ResponseWriter, r *h
 	data.Flag = false
 	data.History = false
 	data.AuditString = "AuditReport"
-	ShowView(w, r, "auditReportByTimeRangeAndOrg.html", data)
+	ShowView(w, r, "03医疗数据审计.html", data)
 }
 
 // *新增：返回两个OperationRecordArr的交集

@@ -38,7 +38,7 @@ func WebStart(app controller.Application) {
 
 	http.HandleFunc("/auditResult", app.AuditResult)
 	http.HandleFunc("/auditReportResult", app.AuditReportResult)
-	http.HandleFunc("/auditReportByTimeRangeAndOrg", app.AuditReportByTimeRangeAndOrg)
+	http.HandleFunc("/03医疗数据审计", app.AuditReportByTimeRangeAndOrg)
 	http.HandleFunc("/auditAllRecords", app.AuditAllRecords)
 	http.HandleFunc("/auditTimeRangeStartEnd", app.AuditTimeRangeStartEnd)
 	http.HandleFunc("/auditByUser", app.AuditByUser)
