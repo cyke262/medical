@@ -2,9 +2,9 @@
 ## 使用说明
 
 ### 0. 初始路径修改
-修改路径为当前项目所在路径即可，如 `/workspace/github.com/medical/`
+修改路径为当前项目所在路径即可，如 `/opt/gopath/src/github.com/hyperledger/fabric-samples/medical/`
 > 修改文件 -20230212 版
-> - `main.go` : `SetPath = "/workspace/github.com/medical/"`
+> - `main.go` : `SetPath = "/opt/gopath/src/github.com/hyperledger/fabric-samples/medical/"`
 > - `config.yaml` : 对应行号 12,38,40,156,185,204
 > - `config_monk.yaml` : 未涉及访问控制不用修改,对应行号 12,38,40,156,185,204
 
@@ -170,8 +170,8 @@ func (t *ServiceSetup) UserLogin(username string, password string) (bool, error)
 > - 其他开发路径：查看  `/etc/profile`
 > - Docker：已配置国内源
 > - Fabric：`2.2` 二进制文件 
-> - 路径：/workspace/github.com/fabric/fabric-samples/bin
-> - 项目地址：/workspace/github.com/medical
+> - 路径：/opt/gopath/src/github.com/hyperledger/fabric-samples/fabric/fabric-samples/bin
+> - 项目地址：/opt/gopath/src/github.com/hyperledger/fabric-samples/medical
 
 #### 获取链接
 
