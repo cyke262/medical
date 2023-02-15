@@ -35,6 +35,7 @@ func WebStart(app controller.Application) {
 	http.HandleFunc("/accessMedResult", app.AccessMedResult)
 	http.HandleFunc("/updateMed", app.UpdateMed)
 	http.HandleFunc("/deleteMed", app.DeleteMed)
+	http.HandleFunc("/medicalDataTrace", app.MedicalDataTrace)
 
 	http.HandleFunc("/auditResult", app.AuditResult)
 	http.HandleFunc("/auditReportResult", app.AuditReportResult)

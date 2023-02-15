@@ -141,6 +141,14 @@ func (app *Application) DataUpload(w http.ResponseWriter, r *http.Request) {
 	ShowView(w, r, "数据上传.html", data)
 }
 
+func (app *Application) MedicalDataTrace(w http.ResponseWriter, r *http.Request) {
+	data.CurrentUser = cuser
+	data.Msg = ""
+	data.Flag = false
+	data.History = true
+	ShowView(w, r, "03医疗数据溯源.html", data)
+}
+
 func (app *Application) AccessMed(w http.ResponseWriter, r *http.Request) {
 	data.CurrentUser = cuser
 	data.Msg = ""
