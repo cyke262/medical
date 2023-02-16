@@ -211,7 +211,7 @@ cd /opt/GoLand-2021.3.3/bin/
 > - 区块链版本为Fabric 2.2.0，搭建步骤见[https://blog.csdn.net/weixin_44165950/article/details/124857431](https://blog.csdn.net/weixin_44165950/article/details/124857431)
 > - golang版本为1.18.8
 > - 含有vscode、vim和notepad++开发环境
-> - 已更换为国内镜像源，换源步骤和内容（版本选22.04）见[https://mirrors.pku.edu.cn/Help/Ubuntu](https://mirrors.pku.edu.cn/Help/Ubuntu)
+> - 已更换为北大镜像源，换源步骤和内容（版本选22.04）见[https://mirrors.pku.edu.cn/Help/Ubuntu](https://mirrors.pku.edu.cn/Help/Ubuntu)
 > - MySQL版本为8.0，用户和密码都为root，端口为3306
 > - Navicat在主目录下的navicat文件夹内
 > - docker使用的是docker.io，未换源
