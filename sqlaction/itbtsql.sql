@@ -1,7 +1,7 @@
 /*
  Navicat MySQL Data Transfer
 
- Source Server         : localhost
+ Source Server         : 123
  Source Server Type    : MySQL
  Source Server Version : 80031 (8.0.31-0ubuntu0.20.04.1)
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 80031 (8.0.31-0ubuntu0.20.04.1)
  File Encoding         : 65001
 
- Date: 21/12/2022 20:54:32
+ Date: 16/02/2023 15:58:23
 */
 
 SET NAMES utf8mb4;
@@ -36,12 +36,12 @@ CREATE TABLE `base_info` (
   `_MedicalHistory` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '现病史',
   `_NativePlace` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '现住地',
   `_Diagnose` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '诊断',
-  `_Addition1` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '预留信息',
+  `_Addition1` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci COMMENT '共享数据内容-bas64',
   `_Addition2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '预留信息',
   `_Addition3` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '预留信息',
   `_Status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '状态',
   `_EntryTime` date DEFAULT NULL COMMENT '入组时间',
-  `_BaseTime` date DEFAULT NULL COMMENT '基准时间',
+  `_BaseTime` date DEFAULT NULL COMMENT '共享截止时间',
   PRIMARY KEY (`_SubjectMark`) USING BTREE,
   KEY `_CaseNumber` (`_CaseNumber`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
@@ -434,7 +434,7 @@ INSERT INTO `login` (`username`, `password`, `identity`, `phone_number`, `userty
 INSERT INTO `login` (`username`, `password`, `identity`, `phone_number`, `usertype`, `state`) VALUES ('李四', '123456', '1234567', '0', 1003, '0');
 INSERT INTO `login` (`username`, `password`, `identity`, `phone_number`, `usertype`, `state`) VALUES ('王五', '123456', '123456789', '0', 103, '0');
 INSERT INTO `login` (`username`, `password`, `identity`, `phone_number`, `usertype`, `state`) VALUES ('admin', 'admin', 'admin', 'admin', 1, '0');
-INSERT INTO `login` (`username`, `password`, `identity`, `phone_number`, `usertype`, `state`) VALUES ('jack', 'jack', 'u1', 'jack', 13, '0');
+INSERT INTO `login` (`username`, `password`, `identity`, `phone_number`, `usertype`, `state`) VALUES ('jack', 'jack', 'u1', 'jack', 13, '1');
 INSERT INTO `login` (`username`, `password`, `identity`, `phone_number`, `usertype`, `state`) VALUES ('u2', 'u2', 'u2', 'u2', 104, '0');
 INSERT INTO `login` (`username`, `password`, `identity`, `phone_number`, `usertype`, `state`) VALUES ('u3', 'u3', 'u3', 'u3', 1001, '0');
 COMMIT;
@@ -6134,17 +6134,3 @@ INSERT INTO `银屑病随访研究变量（随诊变量）` (`_Group`, `_Subject
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
-
--- ----------------------------
--- Table structure for credit_table
--- ----------------------------
-DROP TABLE IF EXISTS `credit_table`;
-CREATE TABLE `credit_table` (
-  `intv0` FLOAT NOT NULL,
-  `intv1` FLOAT NOT NULL,
-  `Credit` FLOAT NOT NULL,
-  `TargetOrg` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
-
-BEGIN;
-INSERT INTO `credit_table` (`intv0`, `intv1`, `Credit`, `TargetOrg`) VALUES (0.5, 0.5, 0.5, '0')
