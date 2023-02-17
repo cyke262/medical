@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"medical/sqlaction"
+	"strconv"
 
 	"github.com/hyperledger/fabric-sdk-go/pkg/client/channel"
 )
@@ -57,6 +58,41 @@ func (t *ServiceSetup) UploadMed(args []string) (string, error) {
 	//return policy, nil
 	//return string(respone.TransactionID), nil
 	return mess, nil
+}
+
+func (t *ServiceSetup) QueryAllMed() ([]TableRow, error) {
+	DB := InitDB()
+	var owner string
+	//TODO:确定用户名，这里需要每个函数都调用么？有全局变量吗？
+	rows := DB.QueryRow("select username from login where state='1'")
+	// rows = DB.QueryRow("select username from login where state='1'")
+	rows.Scan(&owner)
+	fmt.Println("owner is ", owner)
+	SQLString1 := "select _SubjectMark from base_info where _Researcher='" + owner + "'"
+	subjectMark_list := queryDB(DB, SQLString1)
+	// fmt.Println("subjectMark is:", subjectMark_list)
+	SQLString2 := "select _CaseNumber from base_info where _Researcher='" + owner + "'"
+	caseNumber_list := queryDB(DB, SQLString2)
+	// fmt.Println("caseNumber is:", caseNumber_list)
+	// SQLString3 := "select _CaseNumber from base_info where _Researcher='" + owner + "'"
+	// intro := queryDB(DB, SQLString2)
+	// fmt.Println("caseNumber is:", caseNumber_list)
+	// TODO：这里需要上链吗？
+	// mess_map := make(map[int]interface{})
+	// var firstColumn []string
+	// var secondColumn []string
+	var tabledata []TableRow
+	for k, v := range subjectMark_list {
+		var tablerow TableRow
+		tablerow.FirstColumn = strconv.Itoa(k)
+		tablerow.SecondColumn = v
+		tablerow.ThirdColumn = caseNumber_list[k]
+		tablerow.FourthColumn = "成功"
+		tablerow.FifthColumn = "无"
+		tabledata = append(tabledata, tablerow)
+	}
+	return tabledata, nil
+
 }
 
 // func (t *ServiceSetup) AllData(user string) (string, error) {

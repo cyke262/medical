@@ -197,24 +197,31 @@ func (app *Application) UploadMed(w http.ResponseWriter, r *http.Request) {
 }
 
 // 暂时弃用 By Jack 02-17
+
+// 暂时弃用 By Jack 02-17
+// monk 使用 02-17
 func (app *Application) ManageMed(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("---------------调用controllerhandle ManageMed-----------------")
-	// data.CurrentUser = cuser
-	// user, err := json.Marshal(cuser)
-	// info, err := app.Setup.AllData(string(user))
-	// if err != nil {
-	// 	data.Msg = err.Error()
-	// } else {
-	// 	fmt.Println("info is ", info)
-	// 	transactionID := strings.Split(info, "-")[0]
-	// 	policy := strings.Split(info, "=")[1]
-	// 	fmt.Println("policy is ", policy)
-
-	// 	var p abac.Policy
-	// 	err = json.Unmarshal([]byte(policy), &p)
-	// 	data.Msg = "信息添加成功:" + transactionID
-	// 	// data.Med = p
+	// TODO: 如果用户未登录，则跳转至登陆界面
+	// if cuser.LoginName == "" {
+	// 	ShowView(w, r, "login.html", nil)
+	// 	return
 	// }
+	data.CurrentUser = cuser
+	data.Flag = true
+	data.Msg = ""
+	// tabledata, err := app.Setup.QueryAllMed()
+	tabledata, err := app.Setup.QueryAllMed()
+
+	// tabledata_bytes, _ := json.Marshal(tabledata)
+	// tabledata_str := string(tabledata_bytes)
+	if err != nil {
+		data.Msg = err.Error()
+	} else {
+		// fmt.Println("info is ", tabledata_str)
+		data.Table = tabledata
+	}
+
 	ShowView(w, r, "02医疗数据管理.html", data)
 }
 

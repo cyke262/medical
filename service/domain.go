@@ -42,6 +42,16 @@ type OperationRecordArr struct {
 	OperationRecord []OperationRecord
 }
 
+// 表格的每一行
+type TableRow struct {
+	FirstColumn  string
+	SecondColumn string
+	ThirdColumn  string
+	FourthColumn string
+	FifthColumn  string
+	SixthColumn  string
+}
+
 // 操作记录，记录在区块链上不可被修改
 type OperationRecord struct {
 	OperationRecordID string `json:"operationRecordId"` //操作记录ID

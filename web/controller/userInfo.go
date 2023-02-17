@@ -25,6 +25,7 @@ type Data struct {
 	Repo        service.AuditReport //*新增：审计报告格式
 	AuditString string
 	Policy      abac.Policy
+	Table       []service.TableRow
 }
 
 var users []User
