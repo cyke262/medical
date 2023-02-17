@@ -480,6 +480,8 @@
         </div>
     </div>
 
+    <form id="fm1" action="/auditReportResult" method="post" autocomplete="off">
+
     <!-- Unnamed (矩形) -->
     <div id="u1907" class="ax_default box_1">
         <div id="u1907_div" class=""></div>
@@ -508,7 +510,7 @@
     <div id="u1910" class="ax_default primary_button">
         <div id="u1910_div" class=""></div>
         <div id="u1910_text" class="text ">
-            <p><span style="text-decoration:none;">选择时间段</span></p>
+            <p><span style="text-decoration:none;">选择审计时间段</span></p>
         </div>
     </div>
 
@@ -516,7 +518,7 @@
     <div id="u1911" class="ax_default primary_button">
         <img id="u1911_img" class="img " src="static/images/03医疗数据审计/u1911.svg"/>
         <div id="u1911_text" class="text ">
-            <p><span style="text-decoration:none;">选择待审计对象</span></p>
+            <p><span style="text-decoration:none;">提供一个审计ID</span></p>
         </div>
     </div>
 
@@ -524,23 +526,42 @@
     <div id="u1912" class="ax_default primary_button">
         <div id="u1912_div" class=""></div>
         <div id="u1912_text" class="text ">
-            <p><span style="text-decoration:none;">选择待审计机构</span></p>
+            <p><span style="text-decoration:none;">待审计机构ID</span></p>
         </div>
     </div>
 
     <!-- Unnamed (形状) -->
     <div id="u1913" class="ax_default primary_button">
-        <img id="u1913_img" class="img " src="static/images/03医疗数据审计/u1913.svg"/>
-        <div id="u1913_text" class="text ">
-            <p><span style="text-decoration:none;">确认</span></p>
-        </div>
+        <button type="submit" class="u7_div" style="color:white">confirm</button>
+        <!-- u7_div 复制过来作为样式声明 -->
+        <style type="text/css">
+          .u7_div {
+            border-width:0px;
+            position:absolute;
+            left:0px;
+            top:0px;
+            width:703px;
+            height:103px;
+            background:inherit;
+            background-color:rgba(22, 155, 213, 1);
+            border:none;
+            border-radius:30px;
+            -moz-box-shadow:none;
+            -webkit-box-shadow:none;
+            box-shadow:none;
+            font-family:'方正楷体简体';
+            font-weight:400;
+            font-style:normal;
+            font-size:36px;
+          }
+        </style>
     </div>
 
     <!-- Unnamed (矩形) -->
     <div id="u1914" class="ax_default primary_button">
         <div id="u1914_div" class=""></div>
         <div id="u1914_text" class="text ">
-            <p><span style="text-decoration:none;">选择待审计用户</span></p>
+            <p><span style="text-decoration:none;">您的机构ID</span></p>
         </div>
     </div>
 
@@ -555,7 +576,7 @@
     <!-- 邮箱-注册 (文本框) -->
     <div id="u1916" class="ax_default text_field" data-label="邮箱-注册">
         <div id="u1916_div" class=""></div>
-        <input id="u1916_input" type="date" value="" class="u1916_input"/>
+        <input id="u1916_input" type="date" value="" class="u1916_input" name="startTime"/>
     </div>
 
     <!-- Unnamed (矩形) -->
@@ -569,33 +590,27 @@
     <!-- 邮箱-注册 (文本框) -->
     <div id="u1918" class="ax_default text_field" data-label="邮箱-注册">
         <div id="u1918_div" class=""></div>
-        <input id="u1918_input" type="date" value="" class="u1918_input"/>
+        <input id="u1918_input" type="date" value="" class="u1918_input" name="endTime"/>
     </div>
 
     <!-- 请输入数据ID (文本框) -->
-    <div id="u1919" class="ax_default text_field" data-label="请输入数据ID" title="请输入账号">
+    <div id="u1919" class="ax_default text_field" data-label="提供一个审计ID" title="请输入账号">
         <div id="u1919_div" class=""></div>
-        <input id="u1919_input" type="text" value="" class="u1919_input" title="请输入账号"/>
+        <input id="u1919_input" type="text" value="" class="u1919_input" title="请输入账号" name="auditReocrdID0"/>
     </div>
 
     <!-- 请输入用户ID (文本框) -->
-    <div id="u1920" class="ax_default text_field" data-label="请输入用户ID" title="请输入账号">
+    <div id="u1920" class="ax_default text_field" data-label="请输入您的组织ID" title="请输入账号">
         <div id="u1920_div" class=""></div>
-        <input id="u1920_input" type="text" value="" class="u1920_input" title="请输入账号"/>
+        <input id="u1920_input" type="text" value="" class="u1920_input" title="请输入账号" name="orgnisationID"/>
     </div>
 
     <!-- 组织机构 (下拉列表框) -->
-    <div id="u1921" class="ax_default droplist" data-label="组织机构" title="组织机构">
-        <div id="u1921_div" class=""></div>
-        <select id="u1921_input" class="u1921_input" title="组织机构">
-            <option class="u1921_input_option" selected value="                     组织机构">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 组织机构</option>
-            <option class="u1921_input_option" value="                     天津大学">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 天津大学</option>
-            <option class="u1921_input_option" value="                     北京大学">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 北京大学</option>
-            <option class="u1921_input_option" value="                     山东大学">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 山东大学</option>
-            <option class="u1921_input_option" value="                     北大六院">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 北大六院</option>
-            <option class="u1921_input_option" value="                     北京天坛">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 北京天坛</option>
-        </select>
+    <div id="u1921" class="ax_default text_field" data-label="请输入待审计组织ID" title="请输入账号">
+        <div id="u1920_div" class=""></div>
+        <input id="u1920_input" type="text" value="" class="u1920_input" title="请输入账号" name="auditOrg"/>
     </div>
+    </form>
 </div>
 <script src="static/resources/scripts/axure/ios.js"></script>
 </body>
