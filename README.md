@@ -14,8 +14,8 @@ cd medical && go mod tidy
 ```
 ### 2.运行项目：
 ```
-chmod +x clean_docker.sh
-./clean_docker.sh
+第一步：chmod +x clean_docker.sh；或者进入该文件夹的父目录输入chmod +x medical -R，再重新进入medical文件夹
+第二步：./clean_docker.sh
 ```
 ### 3.在`localhost:8088`登录系统
 
