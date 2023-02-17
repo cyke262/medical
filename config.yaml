@@ -1,6 +1,7 @@
 
 version: 1.0.0
 setpath: /opt/gopath/src/github.com/hyperledger/fabric-samples/medical
+# setpath: /workspace/github.com/medical
 client:
 
   organization: org1
@@ -10,6 +11,7 @@ client:
 
   cryptoconfig:
     path: /opt/gopath/src/github.com/hyperledger/fabric-samples/medical/fixtures/crypto-config
+    # path: /workspace/github.com/medical/fixtures/crypto-config
 
   credentialStore:
 
@@ -36,9 +38,10 @@ client:
     client:
       key:
         path: /opt/gopath/src/github.com/hyperledger/fabric-samples/medical/fixtures/crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/tls/client.key
+        # path: /workspace/github.com/medical/fixtures/crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/tls/client.key 
       cert:
         path: /opt/gopath/src/github.com/hyperledger/fabric-samples/medical/fixtures/crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/tls/client.crt
-
+        # path: /workspace/github.com/medical/fixtures/crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/tls/client.crt
 
 channels:
 
@@ -154,6 +157,7 @@ orderers:
     tlsCACerts:
       # Certificate location absolute path
       path: /opt/gopath/src/github.com/hyperledger/fabric-samples/medical/fixtures/crypto-config/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem
+      # path: /workspace/github.com/medical/fixtures/crypto-config/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem
 
 #
 # List of peers to send various requests to, including endorsement, query
@@ -183,6 +187,7 @@ peers:
     tlsCACerts:
       # Certificate location absolute path
       path: /opt/gopath/src/github.com/hyperledger/fabric-samples/medical/fixtures/crypto-config/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
+      # path: /workspace/github.com/medical/fixtures/crypto-config/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
 
 
   peer1.org1.example.com:
@@ -202,7 +207,7 @@ peers:
       allow-insecure: false
     tlsCACerts:
       path: /opt/gopath/src/github.com/hyperledger/fabric-samples/medical/fixtures/crypto-config/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
-
+      # path: /workspace/github.com/medical/fixtures/crypto-config/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
 
 
 #
