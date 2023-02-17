@@ -1,6 +1,11 @@
 
 version: 1.0.0
+<<<<<<< HEAD
 setpath: /workspace/github.com/medical
+=======
+setpath: /opt/gopath/src/github.com/hyperledger/fabric-samples/medical
+# setpath: /workspace/github.com/medical
+>>>>>>> 4f0606cb7bc6be1f235a2e55be43df4d63922f49
 client:
 
   organization: org1
@@ -9,7 +14,12 @@ client:
     level: info
 
   cryptoconfig:
+<<<<<<< HEAD
     path: /workspace/github.com/medical/fixtures/crypto-config
+=======
+    path: /opt/gopath/src/github.com/hyperledger/fabric-samples/medical/fixtures/crypto-config
+    # path: /workspace/github.com/medical/fixtures/crypto-config
+>>>>>>> 4f0606cb7bc6be1f235a2e55be43df4d63922f49
 
   credentialStore:
 
@@ -35,10 +45,18 @@ client:
     # [Optional]. Client key and cert for TLS handshake with peers and orderers
     client:
       key:
+<<<<<<< HEAD
         path: /workspace/github.com/medical/fixtures/crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/tls/client.key
       cert:
         path: /workspace/github.com/medical/fixtures/crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/tls/client.crt
 
+=======
+        path: /opt/gopath/src/github.com/hyperledger/fabric-samples/medical/fixtures/crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/tls/client.key
+        # path: /workspace/github.com/medical/fixtures/crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/tls/client.key 
+      cert:
+        path: /opt/gopath/src/github.com/hyperledger/fabric-samples/medical/fixtures/crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/tls/client.crt
+        # path: /workspace/github.com/medical/fixtures/crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/tls/client.crt
+>>>>>>> 4f0606cb7bc6be1f235a2e55be43df4d63922f49
 
 channels:
 
@@ -153,7 +171,12 @@ orderers:
 
     tlsCACerts:
       # Certificate location absolute path
+<<<<<<< HEAD
       path: /workspace/github.com/medical/fixtures/crypto-config/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem
+=======
+      path: /opt/gopath/src/github.com/hyperledger/fabric-samples/medical/fixtures/crypto-config/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem
+      # path: /workspace/github.com/medical/fixtures/crypto-config/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem
+>>>>>>> 4f0606cb7bc6be1f235a2e55be43df4d63922f49
 
 #
 # List of peers to send various requests to, including endorsement, query
@@ -182,7 +205,12 @@ peers:
 
     tlsCACerts:
       # Certificate location absolute path
+<<<<<<< HEAD
       path: /workspace/github.com/medical/fixtures/crypto-config/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
+=======
+      path: /opt/gopath/src/github.com/hyperledger/fabric-samples/medical/fixtures/crypto-config/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
+      # path: /workspace/github.com/medical/fixtures/crypto-config/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
+>>>>>>> 4f0606cb7bc6be1f235a2e55be43df4d63922f49
 
 
   peer1.org1.example.com:
@@ -201,8 +229,13 @@ peers:
       # allow-insecure will be taken into consideration if address has no protocol defined, if true then grpc or else grpcs
       allow-insecure: false
     tlsCACerts:
+<<<<<<< HEAD
       path: /workspace/github.com/medical/fixtures/crypto-config/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
 
+=======
+      path: /opt/gopath/src/github.com/hyperledger/fabric-samples/medical/fixtures/crypto-config/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
+      # path: /workspace/github.com/medical/fixtures/crypto-config/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
+>>>>>>> 4f0606cb7bc6be1f235a2e55be43df4d63922f49
 
 
 #

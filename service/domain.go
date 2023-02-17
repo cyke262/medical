@@ -208,6 +208,21 @@ func InsertDB(DB *sql.DB, data []string, casenumber string) bool {
 	return true
 }
 
+//根据各种信息生成CaseNumber的函数，暂时没想好怎么写
+func GenerateCaseNumber(data []string) string {
+	//共有6个参数，分别为类型、返回编号、病种、所属人、机构、时间
+	if len(data) != 6 {
+		return ""
+	}
+	final_casenumber := "19260817"
+	return final_casenumber //返回最终生成的CaseNumber
+}
+
+//将与区块链相关的数据先存到数据库中，在GenerateCaseNumber
+func InsertChainBasedDataIntoDB(DB *sql.DB, data []string) bool {
+	return true
+}
+
 func GeneratePolicy(DB *sql.DB, casenumber string) string {
 	var g, s, d, r, o, t string
 	rows := DB.QueryRow("select _Groups,_SubjectMark,_Diseases,_Researcher,_Organization,_GatherTime FROM base_info where _CaseNumber='" + casenumber + "'")
