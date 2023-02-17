@@ -75,6 +75,88 @@ func (app *Application) Register(w http.ResponseWriter, r *http.Request) {
 	ShowView(w, r, "register.html", nil)
 }
 
+/*
+	添加菜单栏跳转
+	By Jack
+	02-17
+*/
+// 00-简单搜索展示 SimpleSearch
+func (app *Application) SimpleSearch(w http.ResponseWriter, r *http.Request) {
+	ShowView(w, r, "menu/SearchDisplay.html", nil)
+}
+
+// 00-高级搜索展示 显示页面为: AdvancedSearch.html
+func (app *Application) AdvancedSearch(w http.ResponseWriter, r *http.Request) {
+	ShowView(w, r, "menu/AdvancedSearch.html", nil)
+}
+
+// 01-队列信息展示 显示页面为: QueueDisplay.html
+func (app *Application) QueueDisplay(w http.ResponseWriter, r *http.Request) {
+	ShowView(w, r, "menu/QueueDisplay.html", nil)
+}
+
+// 01-区块信息展示 显示页面为: BlockDisplay.html
+func (app *Application) BlockDisplay(w http.ResponseWriter, r *http.Request) {
+	ShowView(w, r, "menu/BlockDisplay.html", nil)
+}
+
+// 01-本地存储详情 显示页面为: LocalStorage.html
+func (app *Application) LocalStorage(w http.ResponseWriter, r *http.Request) {
+	ShowView(w, r, "menu/LocalStorage.html", nil)
+}
+
+// 02-医疗数据管理 显示页面为: MedicalDataManagement.html
+func (app *Application) MedicalDataManagement(w http.ResponseWriter, r *http.Request) {
+	ShowView(w, r, "menu/MedicalDataManagement.html", nil)
+}
+
+// 02-访问控制管理 显示页面为: AccessControlManagement.html
+func (app *Application) AccessControlManagement(w http.ResponseWriter, r *http.Request) {
+	ShowView(w, r, "menu/AccessControlManagement.html", nil)
+}
+
+// 02-数据加密共享 显示页面为: EncryDataShared.html
+func (app *Application) EncryDataShared(w http.ResponseWriter, r *http.Request) {
+	ShowView(w, r, "menu/EncryDataShared.html", nil)
+}
+
+// 03-医疗数据溯源 显示页面为: MedicalDataTraceability.html
+func (app *Application) MedicalDataTraceability(w http.ResponseWriter, r *http.Request) {
+	ShowView(w, r, "menu/MedicalDataTraceability.html", nil)
+}
+
+// 03-医疗数据审计 显示页面为: MedicalDataAudit.html
+func (app *Application) MedicalDataAudit(w http.ResponseWriter, r *http.Request) {
+	ShowView(w, r, "menu/MedicalDataAudit.html", nil)
+}
+
+// 04-搜索结果展示 显示页面为: SearchDisplay.html
+func (app *Application) SearchDisplay(w http.ResponseWriter, r *http.Request) {
+	ShowView(w, r, "menu/SearchDisplay.html", nil)
+}
+
+// 04-访问记录展示 显示页面为: AccessRecordDisplay.html
+func (app *Application) AccessRecordDisplay(w http.ResponseWriter, r *http.Request) {
+	ShowView(w, r, "menu/AccessRecordDisplay.html", nil)
+}
+
+// 04-操作记录展示 显示页面为: OperationRecordDisplay.html
+func (app *Application) OperationRecordDisplay(w http.ResponseWriter, r *http.Request) {
+	ShowView(w, r, "menu/OperationRecordDisplay.html", nil)
+}
+
+// 05-用户信息更正 显示页面为: ChangeUserInfo.html
+func (app *Application) ChangeUserInfo(w http.ResponseWriter, r *http.Request) {
+	ShowView(w, r, "menu/ChangeUserInfo.html", nil)
+}
+
+// 05-用户信息验证 显示页面为: VerifyUserInfo.html
+func (app *Application) VerifyUserInfo(w http.ResponseWriter, r *http.Request) {
+	ShowView(w, r, "menu/VerifyUserInfo.html", nil)
+}
+
+// END
+
 func (app *Application) UploadMed(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("---------------调用controllerhandle UploadMed-----------------")
 	data.CurrentUser = cuser
@@ -109,6 +191,7 @@ func (app *Application) UploadMed(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// 暂时弃用 By Jack 02-17
 func (app *Application) ManageMed(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("---------------调用controllerhandle ManageMed-----------------")
 	// data.CurrentUser = cuser

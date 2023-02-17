@@ -21,8 +21,40 @@ func WebStart(app controller.Application) {
 	http.HandleFunc("/register", app.Register)
 	// 忘记密码
 	http.HandleFunc("/forgotpassword", app.Forgotpassword)
-
+	// 主页面
 	http.HandleFunc("/index", app.Index)
+
+	// 菜单栏跳转
+	// 00-简单搜索展示 - 对应页面为 04-搜索结果展示 显示页面为: SearchDisplay.html
+	http.HandleFunc("/简单搜索展示", app.SimpleSearch)
+	// 00-高级搜索展示 显示页面为: AdvancedSearch.html
+	http.HandleFunc("/高级搜索展示", app.AdvancedSearch)
+	// 01-队列信息展示 显示页面为: QueueDisplay.html
+	http.HandleFunc("/队列信息展示", app.QueueDisplay)
+	// 01-区块信息展示 显示页面为: BlockDisplay.html
+	http.HandleFunc("/区块信息展示", app.BlockDisplay)
+	// 01-本地存储详情 显示页面为: LocalStorage.html
+	http.HandleFunc("/本地存储详情", app.LocalStorage)
+	// 02-医疗数据管理 显示页面为: MedicalDataManagement.html
+	http.HandleFunc("/医疗数据管理", app.MedicalDataManagement)
+	// 02-访问控制管理 显示页面为: AccessControlManagement.html
+	http.HandleFunc("/访问控制管理", app.AccessControlManagement)
+	// 02-数据加密共享 显示页面为: EncryDataShared.html
+	http.HandleFunc("/数据加密共享", app.EncryDataShared)
+	// 03-医疗数据溯源 显示页面为: MedicalDataTraceability.html
+	http.HandleFunc("/医疗数据溯源", app.MedicalDataTraceability)
+	// 03-医疗数据审计 显示页面为: MedicalDataAudit.html
+	http.HandleFunc("/医疗数据审计", app.MedicalDataAudit)
+	// 04-搜索结果展示 显示页面为: SearchDisplay.html
+	http.HandleFunc("/搜索结果展示", app.SearchDisplay)
+	// 04-访问记录展示 显示页面为: AccessRecordDisplay.html
+	http.HandleFunc("/访问记录展示", app.AccessRecordDisplay)
+	// 04-操作记录展示 显示页面为: OperationRecordDisplay.html
+	http.HandleFunc("/操作记录展示", app.OperationRecordDisplay)
+	// 05-用户信息更正 显示页面为: ChangeUserInfo.html
+	http.HandleFunc("/用户信息更正", app.ChangeUserInfo)
+	// 05-用户信息验证 显示页面为: VerifyUserInfo.html
+	http.HandleFunc("/用户信息验证", app.VerifyUserInfo)
 
 	http.HandleFunc("/uploadMed", app.UploadMed)
 	http.HandleFunc("/manageMed", app.ManageMed)
