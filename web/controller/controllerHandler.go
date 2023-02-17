@@ -127,6 +127,11 @@ func (app *Application) MedicalDataTraceability(w http.ResponseWriter, r *http.R
 
 // 03-医疗数据审计 显示页面为: MedicalDataAudit.html
 func (app *Application) MedicalDataAudit(w http.ResponseWriter, r *http.Request) {
+	data.CurrentUser = cuser
+	data.Msg = ""
+	data.Flag = false
+	data.History = false
+	data.AuditString = "AuditReport"
 	ShowView(w, r, "menu/MedicalDataAudit.html", nil)
 }
 
