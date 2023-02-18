@@ -82,11 +82,12 @@ func (t *ServiceSetup) QueryAllMed() ([]TableRow, error) {
 	// var firstColumn []string
 	// var secondColumn []string
 	var tabledata []TableRow
-	for k, v := range subjectMark_list {
+	for i := 0; i < len(subjectMark_list); i++ {
+
 		var tablerow TableRow
-		tablerow.FirstColumn = strconv.Itoa(k)
-		tablerow.SecondColumn = v
-		tablerow.ThirdColumn = caseNumber_list[k]
+		tablerow.FirstColumn = strconv.Itoa(i + 1)
+		tablerow.SecondColumn = subjectMark_list[i]
+		tablerow.ThirdColumn = caseNumber_list[i]
 		tablerow.FourthColumn = "成功"
 		tablerow.FifthColumn = "无"
 		tabledata = append(tabledata, tablerow)

@@ -51,82 +51,43 @@
     <!-- 已上传数据 (组 合) -->
     <div id="u827" class="ax_default" data-label="已上传数据" data-left="490" data-top="568" data-width="1375" data-height="450">
 
-
         <!-- 医疗数据管理 (组 合) -->
         <div id="u828" class="ax_default" data-label="医疗数据管理" data-left="490" data-top="568" data-width="1375" data-height="450">
-          <div  class="ax_default">
-              <table  border="1" id="u829" cellspacing="0">
-                  <tr>
-                      <td >序号</td>
-                      <td>病例编号</td>
-                      <td>返回索引</td>
-                      <td>结果</td>
-                      <td>备注</td>
-                  </tr>
-                  {{range .Table}}
-                      <tr>
-                          <td>
-                            <div id="u860" class="ax_default checkbox" data-label="002-单选框">
-                              <label for="u860_input" style="position: absolute; left: 0px;">
-                                  <img id="u860_img" class="img " src="static/images/02医疗数据管理/002-单选框_u860.svg"/>
-                                  <div id="u860_text" class="text " style="display:none; visibility: hidden">
-                                      <p></p>
-                                  </div>
-                              </label>
-                              <input id="u860_input" type="checkbox" value="checkbox"/>
-                          </div>
-                            {{.FirstColumn}}
-                          </td>
-                          <td>{{.SecondColumn}}</td>
-                          <td>{{.ThirdColumn}}</td>
-                          <td>{{.FourthColumn}}</td>
-                          <td>{{.FifthColumn}}</td>
-                      </tr>
-                  {{end}}
-              </table>
-          </div>
+            <!-- <div  class="ax_default"> -->
+                <table  border="1" id="u829" cellspacing="0">
+                    <tr>
+                        <td >序号</td>
+                        <td>病例编号</td>
+                        <td>返回索引</td>
+                        <td>结果</td>
+                        <td>备注</td>
+                    </tr>
+                    {{range .Table}}
+                        <tr>
+                            <td>
+                              <div id="u860" class="ax_default checkbox" data-label="002-单选框">
+                                <label for="u860_input" style="position: absolute; left: 0px;">
+                                    <img id="u860_img" class="img " src="static/images/02医疗数据管理/002-单选框_u860.svg"/>
+                                    <div id="u860_text" class="text " style="display:none; visibility: hidden">
+                                        <p></p>
+                                    </div>
+                                </label>
+                                <input id="u860_input" type="checkbox" value="checkbox"/>
+                            </div>
+                              {{.FirstColumn}}
+                            </td>
+                            <td>{{.SecondColumn}}</td>
+                            <td>{{.ThirdColumn}}</td>
+                            <td>{{.FourthColumn}}</td>
+                            <td>{{.FifthColumn}}</td>
+                        </tr>
+                    {{end}}
+                </table>
+            <!-- </div> -->
         </div>
 
-    <!-- Unnamed (矩形) -->
-    <div id="u865" class="ax_default flow_shape">
-        <img id="u865_img" class="img " src="static/images/02医疗数据管理/u865.svg"/>
-        <div id="u865_text" class="text ">
-            <p><span style="text-decoration:none;">成功</span></p>
-        </div>
+
     </div>
-
-    <!-- Unnamed (矩形) -->
-    <div id="u866" class="ax_default flow_shape">
-        <img id="u866_img" class="img " src="static/images/02医疗数据管理/u865.svg"/>
-        <div id="u866_text" class="text ">
-            <p><span style="text-decoration:none;">成功</span></p>
-        </div>
-    </div>
-
-    <!-- Unnamed (矩形) -->
-    <div id="u867" class="ax_default flow_shape">
-        <img id="u867_img" class="img " src="static/images/02医疗数据管理/u865.svg"/>
-        <div id="u867_text" class="text ">
-            <p><span style="text-decoration:none;">成功</span></p>
-        </div>
-    </div>
-
-    <!-- Unnamed (矩形) -->
-    <div id="u868" class="ax_default flow_shape">
-        <img id="u868_img" class="img " src="static/images/02医疗数据管理/u865.svg"/>
-        <div id="u868_text" class="text ">
-            <p><span style="text-decoration:none;">成功</span></p>
-        </div>
-    </div>
-
-    <!-- Unnamed (矩形) -->
-    <div id="u869" class="ax_default flow_shape">
-        <img id="u869_img" class="img " src="static/images/02医疗数据管理/u865.svg"/>
-        <div id="u869_text" class="text ">
-            <p><span style="text-decoration:none;">成功</span></p>
-        </div>
-    </div>
-
     <!-- 页面头部样式 (组 合) -->
     <div id="u870" class="ax_default" data-label="页面头部样式" data-left="0" data-top="0" data-width="2054" data-height="334">
 

@@ -37,7 +37,8 @@ func WebStart(app controller.Application) {
 	http.HandleFunc("/本地存储详情", app.LocalStorage)
 
 	// 02-医疗数据管理 显示页面为: MedicalDataManagement.html
-	// 用原来版本 即http.HandleFunc("/manageMed", app.ManageMed) by monk 02-17
+	// 用原来版本  app.ManageMed by monk 02-17
+	http.HandleFunc("/医疗数据管理", app.ManageMed)
 	// http.HandleFunc("/医疗数据管理", app.MedicalDataManagement)
 
 	// 02-访问控制管理 显示页面为: AccessControlManagement.html
@@ -60,7 +61,6 @@ func WebStart(app controller.Application) {
 	http.HandleFunc("/用户信息验证", app.VerifyUserInfo)
 
 	http.HandleFunc("/uploadMed", app.UploadMed)
-	http.HandleFunc("/manageMed", app.ManageMed)
 	// http.HandleFunc("/uploadOldMed", app.UploadOldMed)
 	http.HandleFunc("/operateMed", app.OperateMed)
 	http.HandleFunc("/auditMed", app.AuditMed)
@@ -83,7 +83,7 @@ func WebStart(app controller.Application) {
 	http.HandleFunc("/auditByOriginalAuthor", app.AuditByOriginalAuthor)
 	http.HandleFunc("/auditByPatient", app.AuditByPatient)
 
-	http.HandleFunc("/02医疗数据上传.html", app.DataUpload)
+	http.HandleFunc("/dataUpload", app.DataUpload)
 
 	fmt.Println("启动Web服务, 监听端口号为: 8088")
 	err := http.ListenAndServe(":8088", nil)
