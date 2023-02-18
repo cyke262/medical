@@ -30,7 +30,7 @@ var SetPath string
 
 func main() {
 	// SetPath = "/workspace/github.com/medical/"
-	SetPath = "/Users/monk/code/go/src/medical/"
+	SetPath = "/opt/gopath/src/github.com/hyperledger/fabric-samples/medical/"
 	// SetPath = "/workspace/github.com/medical"
 	// init orgs information
 	orgs := []*sdkInit.OrgInfo{
